@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.openhab.binding</groupId>
+    <artifactId>pom</artifactId>
+    <version>2.3.0</version>
+  </parent>
+
+  <artifactId>org.openhab.binding.rflink.test</artifactId>
+  <packaging>eclipse-test-plugin</packaging>
+
+  <name>RfLink Binding Tests</name>
+  
+  <properties>
+    <src.dir>src/test/java</src.dir>
+  </properties>
+  
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>openhab-bintray</id>
+      <name>Bintray Repository for openHAB</name>
+      <url>https://dl.bintray.com/openhab/mvn/</url>
+    </repository>
+   </repositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.openhab.binding</groupId>
+      <artifactId>org.openhab.binding.rflink</artifactId>
+      <version>2.2.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <sourceDirectory>${src.dir}</sourceDirectory>
+  </build>
+</project>
