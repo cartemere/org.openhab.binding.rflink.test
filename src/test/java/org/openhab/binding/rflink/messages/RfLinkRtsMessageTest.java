@@ -15,11 +15,11 @@ import org.openhab.binding.rflink.exceptions.RfLinkNotImpException;
 public class RfLinkRtsMessageTest {
 
     public static String INPUT_RTS_SWITCH_MESSAGE = "20;39;RTS;ID=1a602a;SWITCH=01;CMD=DOWN;";
-    public static String OUTPUT_RTS_DOWN_MESSAGE = "10;RTS;OFOFF1;1;DOWN;";
-    public static String OUTPUT_RTS_UP_MESSAGE = "10;RTS;OFOFF1;1;UP;";
-    public static String OUTPUT_RTS_STOP_MESSAGE = "10;RTS;OFOFF1;1;STOP;";
-    public static String OUTPUT_RTS_ON_MESSAGE = "10;RTS;OFOFF1;1;ON;";
-    public static String OUTPUT_RTS_OFF_MESSAGE = "10;RTS;OFOFF1;1;OFF;";
+    public static String OUTPUT_RTS_DOWN_MESSAGE = "10;RTS;00OFOFF1;1;DOWN;";
+    public static String OUTPUT_RTS_UP_MESSAGE = "10;RTS;00OFOFF1;1;UP;";
+    public static String OUTPUT_RTS_STOP_MESSAGE = "10;RTS;00OFOFF1;1;STOP;";
+    public static String OUTPUT_RTS_ON_MESSAGE = "10;RTS;00OFOFF1;1;UP;";
+    public static String OUTPUT_RTS_OFF_MESSAGE = "10;RTS;00OFOFF1;1;DOWN;";
 
     @Test
     public void testEncodeMessage() {
@@ -52,7 +52,7 @@ public class RfLinkRtsMessageTest {
         message.initializeFromChannel(config, channelId, command);
         Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceId());
         Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
-        Assert.assertEquals("command error", OnOffType.ON, message.command);
+        Assert.assertEquals("command error", UpDownType.UP, message.command);
         String decodedMessage = message.decodeMessageAsString("");
         Assert.assertNotNull(decodedMessage);
         Assert.assertEquals("message error", OUTPUT_RTS_ON_MESSAGE, decodedMessage);
@@ -82,7 +82,7 @@ public class RfLinkRtsMessageTest {
         message.initializeFromChannel(config, channelId, command);
         Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceId());
         Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
-        Assert.assertEquals("command error", OnOffType.OFF, message.command);
+        Assert.assertEquals("command error", UpDownType.DOWN, message.command);
         String decodedMessage = message.decodeMessageAsString("");
         Assert.assertNotNull(decodedMessage);
         Assert.assertEquals("message error", OUTPUT_RTS_OFF_MESSAGE, decodedMessage);
