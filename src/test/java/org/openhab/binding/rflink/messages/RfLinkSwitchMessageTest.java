@@ -25,7 +25,7 @@ public class RfLinkSwitchMessageTest {
         RfLinkSwitchMessage message = new RfLinkSwitchMessage(INPUT_SWITCH_KAKU_MESSAGE);
         Assert.assertEquals("deviceName error", "Kaku", message.getDeviceName());
         Assert.assertEquals("deviceId error", "Kaku-41-1", message.getDeviceId());
-        Assert.assertEquals("deviceId error", OpenClosedType.OPEN.toString(), message.contact.toString());
+        Assert.assertEquals("deviceId error", OpenClosedType.OPEN, message.contact);
         Assert.assertEquals("deviceId error", OnOffType.ON, message.command);
     }
 
@@ -34,7 +34,7 @@ public class RfLinkSwitchMessageTest {
         RfLinkSwitchMessage message = new RfLinkSwitchMessage(INPUT_SWITCH_KAKU_MESSAGE2);
         Assert.assertEquals("deviceName error", "Kaku", message.getDeviceName());
         Assert.assertEquals("deviceId error", "Kaku-44-4", message.getDeviceId());
-        Assert.assertEquals("deviceId error", OpenClosedType.CLOSED.toString(), message.contact.toString());
+        Assert.assertEquals("deviceId error", OpenClosedType.CLOSED, message.contact);
         Assert.assertEquals("deviceId error", OnOffType.OFF, message.command);
     }
 
@@ -44,7 +44,7 @@ public class RfLinkSwitchMessageTest {
         Assert.assertEquals("deviceName error", "NewKaku", message.getDeviceName());
         Assert.assertEquals("deviceId error", "NewKaku-cac142-3", message.getDeviceId());
         Assert.assertEquals("deviceId error", OnOffType.OFF, message.command);
-        Assert.assertEquals("deviceId error", OpenClosedType.CLOSED.toString(), message.contact.toString());
+        Assert.assertEquals("deviceId error", OpenClosedType.CLOSED, message.contact);
     }
 
     @Test
