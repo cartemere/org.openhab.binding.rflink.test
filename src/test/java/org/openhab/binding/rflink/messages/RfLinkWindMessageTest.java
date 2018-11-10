@@ -20,7 +20,7 @@ public class RfLinkWindMessageTest {
         Assert.assertEquals("windDirection error", 45.0, message.windDirection, ComparisonUtils.COMPARISON_DELTA);
         // int ?
         Assert.assertEquals("windGust error", 136, message.windGust, ComparisonUtils.COMPARISON_DELTA);
-        Assert.assertEquals("windChill error", -4.8, message.windChill, ComparisonUtils.COMPARISON_DELTA);
+        Assert.assertEquals("windChill error", 17.6, message.windChill, ComparisonUtils.COMPARISON_DELTA);
     }
 
     @Test
