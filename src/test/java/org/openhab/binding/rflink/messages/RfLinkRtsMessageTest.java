@@ -40,7 +40,8 @@ public class RfLinkRtsMessageTest {
         Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceId());
         Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
         Assert.assertEquals("command error", UpDownType.DOWN, message.command);
-        Collection<String> decodedMessages = message.decodeMessagesAsString("");
+
+        Collection<String> decodedMessages = message.buildMessages();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_RTS_DOWN_MESSAGE, decodedMessages.iterator().next());
@@ -56,7 +57,8 @@ public class RfLinkRtsMessageTest {
         Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceId());
         Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
         Assert.assertEquals("command error", UpDownType.UP, message.command);
-        Collection<String> decodedMessages = message.decodeMessagesAsString("");
+
+        Collection<String> decodedMessages = message.buildMessages();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_RTS_ON_MESSAGE, decodedMessages.iterator().next());
@@ -72,7 +74,8 @@ public class RfLinkRtsMessageTest {
         Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceId());
         Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
         Assert.assertEquals("command error", UpDownType.UP, message.command);
-        Collection<String> decodedMessages = message.decodeMessagesAsString("");
+
+        Collection<String> decodedMessages = message.buildMessages();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_RTS_UP_MESSAGE, decodedMessages.iterator().next());
@@ -89,7 +92,7 @@ public class RfLinkRtsMessageTest {
         Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
         Assert.assertEquals("command error", UpDownType.DOWN, message.command);
 
-        Collection<String> decodedMessages = message.decodeMessagesAsString("");
+        Collection<String> decodedMessages = message.buildMessages();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_RTS_OFF_MESSAGE, decodedMessages.iterator().next());
@@ -107,7 +110,7 @@ public class RfLinkRtsMessageTest {
         Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
         Assert.assertEquals("command error", StopMoveType.STOP, message.command);
 
-        Collection<String> decodedMessages = message.decodeMessagesAsString("");
+        Collection<String> decodedMessages = message.buildMessages();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_RTS_STOP_MESSAGE, decodedMessages.iterator().next());

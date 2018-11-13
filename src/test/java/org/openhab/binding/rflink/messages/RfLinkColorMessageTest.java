@@ -58,7 +58,7 @@ public class RfLinkColorMessageTest {
         message.initializeFromChannel(config, channelId, command);
         Assert.assertNotNull(message);
         // can't go further for now... only binary outputs
-        Collection<String> messages = message.decodeMessagesAsString("");
+        Collection<String> messages = message.buildMessages();
         Assert.assertEquals("expect 2 messages", 2, messages.size());
         Assert.assertTrue("Should contain ON action", messages.contains(OUTPUT_MILIGHT_ON_MESSAGE));
         Assert.assertTrue("Should contain BRIGHT action", messages.contains(OUTPUT_MILIGHT_BRIGHT_MESSAGE));

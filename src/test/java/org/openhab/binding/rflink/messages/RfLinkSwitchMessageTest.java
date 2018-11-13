@@ -1,5 +1,7 @@
 package org.openhab.binding.rflink.messages;
 
+import java.util.Collection;
+
 import org.eclipse.smarthome.core.library.types.OnOffType;
 import org.eclipse.smarthome.core.library.types.OpenClosedType;
 import org.eclipse.smarthome.core.thing.ChannelUID;
@@ -66,9 +68,11 @@ public class RfLinkSwitchMessageTest {
         Assert.assertEquals("deviceId error", "Kaku-00004d-1", message.getDeviceId());
         Assert.assertEquals("deviceName error", "Kaku", message.getDeviceName());
         Assert.assertEquals("command error", OnOffType.OFF, message.command);
-        String decodedMessage = message.decodeMessageAsString(message.command.toString());
-        Assert.assertNotNull(decodedMessage);
-        Assert.assertEquals("message error", OUTPUT_SWITCH_KAKU_MESSAGE, decodedMessage);
+
+        Collection<String> decodedMessages = message.buildMessages();
+        Assert.assertNotNull(decodedMessages);
+        Assert.assertEquals(1, decodedMessages.size());
+        Assert.assertEquals("message error", OUTPUT_SWITCH_KAKU_MESSAGE, decodedMessages.iterator().next());
     }
 
     @Test
@@ -81,8 +85,10 @@ public class RfLinkSwitchMessageTest {
         Assert.assertEquals("deviceId error", "HomeConfort-01b523-D3", message.getDeviceId());
         Assert.assertEquals("deviceName error", "HomeConfort", message.getDeviceName());
         Assert.assertEquals("command error", OnOffType.ON, message.command);
-        String decodedMessage = message.decodeMessageAsString(message.command.toString());
-        Assert.assertNotNull(decodedMessage);
-        Assert.assertEquals("message error", OUTPUT_SWITCH_HOMECONFORT_MESSAGE, decodedMessage);
+
+        Collection<String> decodedMessages = message.buildMessages();
+        Assert.assertNotNull(decodedMessages);
+        Assert.assertEquals(1, decodedMessages.size());
+        Assert.assertEquals("message error", OUTPUT_SWITCH_HOMECONFORT_MESSAGE, decodedMessages.iterator().next());
     }
 }
