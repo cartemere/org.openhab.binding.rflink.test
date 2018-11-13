@@ -1,5 +1,7 @@
 package org.openhab.binding.rflink.messages;
 
+import java.util.Collection;
+
 import org.eclipse.smarthome.core.library.types.OnOffType;
 import org.eclipse.smarthome.core.library.types.StopMoveType;
 import org.eclipse.smarthome.core.library.types.UpDownType;
@@ -38,9 +40,10 @@ public class RfLinkRtsMessageTest {
         Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceId());
         Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
         Assert.assertEquals("command error", UpDownType.DOWN, message.command);
-        String decodedMessage = message.decodeMessageAsString("");
-        Assert.assertNotNull(decodedMessage);
-        Assert.assertEquals("message error", OUTPUT_RTS_DOWN_MESSAGE, decodedMessage);
+        Collection<String> decodedMessages = message.decodeMessagesAsString("");
+        Assert.assertNotNull(decodedMessages);
+        Assert.assertEquals(1, decodedMessages.size());
+        Assert.assertEquals("message error", OUTPUT_RTS_DOWN_MESSAGE, decodedMessages.iterator().next());
     }
 
     @Test
@@ -53,9 +56,10 @@ public class RfLinkRtsMessageTest {
         Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceId());
         Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
         Assert.assertEquals("command error", UpDownType.UP, message.command);
-        String decodedMessage = message.decodeMessageAsString("");
-        Assert.assertNotNull(decodedMessage);
-        Assert.assertEquals("message error", OUTPUT_RTS_ON_MESSAGE, decodedMessage);
+        Collection<String> decodedMessages = message.decodeMessagesAsString("");
+        Assert.assertNotNull(decodedMessages);
+        Assert.assertEquals(1, decodedMessages.size());
+        Assert.assertEquals("message error", OUTPUT_RTS_ON_MESSAGE, decodedMessages.iterator().next());
     }
 
     @Test
@@ -68,9 +72,10 @@ public class RfLinkRtsMessageTest {
         Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceId());
         Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
         Assert.assertEquals("command error", UpDownType.UP, message.command);
-        String decodedMessage = message.decodeMessageAsString("");
-        Assert.assertNotNull(decodedMessage);
-        Assert.assertEquals("message error", OUTPUT_RTS_UP_MESSAGE, decodedMessage);
+        Collection<String> decodedMessages = message.decodeMessagesAsString("");
+        Assert.assertNotNull(decodedMessages);
+        Assert.assertEquals(1, decodedMessages.size());
+        Assert.assertEquals("message error", OUTPUT_RTS_UP_MESSAGE, decodedMessages.iterator().next());
     }
 
     @Test
@@ -83,9 +88,12 @@ public class RfLinkRtsMessageTest {
         Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceId());
         Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
         Assert.assertEquals("command error", UpDownType.DOWN, message.command);
-        String decodedMessage = message.decodeMessageAsString("");
-        Assert.assertNotNull(decodedMessage);
-        Assert.assertEquals("message error", OUTPUT_RTS_OFF_MESSAGE, decodedMessage);
+
+        Collection<String> decodedMessages = message.decodeMessagesAsString("");
+        Assert.assertNotNull(decodedMessages);
+        Assert.assertEquals(1, decodedMessages.size());
+        Assert.assertEquals("message error", OUTPUT_RTS_OFF_MESSAGE, decodedMessages.iterator().next());
+
     }
 
     @Test
@@ -98,8 +106,10 @@ public class RfLinkRtsMessageTest {
         Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceId());
         Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
         Assert.assertEquals("command error", StopMoveType.STOP, message.command);
-        String decodedMessage = message.decodeMessageAsString("");
-        Assert.assertNotNull(decodedMessage);
-        Assert.assertEquals("message error", OUTPUT_RTS_STOP_MESSAGE, decodedMessage);
+
+        Collection<String> decodedMessages = message.decodeMessagesAsString("");
+        Assert.assertNotNull(decodedMessages);
+        Assert.assertEquals(1, decodedMessages.size());
+        Assert.assertEquals("message error", OUTPUT_RTS_STOP_MESSAGE, decodedMessages.iterator().next());
     }
 }
