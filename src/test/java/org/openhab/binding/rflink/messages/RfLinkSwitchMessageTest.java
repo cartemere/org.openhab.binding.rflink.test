@@ -26,6 +26,7 @@ public class RfLinkSwitchMessageTest {
     public static String INPUT_SWITCH_NEWKAKU_DIM_MESSAGE = "20;04;NewKaku;ID=000007;SWITCH=2;CMD=SET_LEVEL=14;";
     public static String INPUT_SWITCH_CONRAD_MESSAGE = "20;41;Conrad RSL2;ID=00010002;SWITCH=03;CMD=ON;";
     public static String OUTPUT_SWITCH_KAKU_MESSAGE = "10;Kaku;0000004d;1;OFF;";
+    public static String OUTPUT_SWITCH_KAKU_DIM_MESSAGE = "10;Kaku;0000004d;1;14;";
     public static String OUTPUT_SWITCH_HOMECONFORT_MESSAGE = "10;HomeConfort;0001b523;D3;ON;";
 
     @Test
@@ -99,6 +100,23 @@ public class RfLinkSwitchMessageTest {
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_SWITCH_KAKU_MESSAGE, decodedMessages.iterator().next());
+    }
+
+    @Test
+    public void testDecodeSwitchKakuDimMessage() throws RfLinkNotImpException, RfLinkException {
+        RfLinkDeviceConfiguration config = MessageTestFactory.getDeviceConfiguration("Kaku-00004d-1", false);
+        ChannelUID channelId = MessageTestFactory.getChannel(RfLinkBindingConstants.CHANNEL_SHUTTER);
+        Command command = DecimalType.valueOf("14");
+        RfLinkSwitchMessage message = new RfLinkSwitchMessage();
+        message.initializeFromChannel(config, channelId, command);
+        Assert.assertEquals("deviceId error", "Kaku-00004d-1", message.getDeviceId());
+        Assert.assertEquals("deviceName error", "Kaku", message.getDeviceName());
+        Assert.assertEquals("command error", DecimalType.valueOf("14"), message.command);
+
+        Collection<String> decodedMessages = message.buildMessages();
+        Assert.assertNotNull(decodedMessages);
+        Assert.assertEquals(1, decodedMessages.size());
+        Assert.assertEquals("message error", OUTPUT_SWITCH_KAKU_DIM_MESSAGE, decodedMessages.iterator().next());
     }
 
     @Test
