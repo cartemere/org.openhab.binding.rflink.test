@@ -9,13 +9,13 @@ import org.eclipse.smarthome.core.library.types.OpenClosedType;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.types.Command;
 import org.eclipse.smarthome.core.types.State;
-import org.eclipse.smarthome.core.types.UnDefType;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openhab.binding.rflink.RfLinkBindingConstants;
 import org.openhab.binding.rflink.config.RfLinkDeviceConfiguration;
 import org.openhab.binding.rflink.exceptions.RfLinkException;
 import org.openhab.binding.rflink.exceptions.RfLinkNotImpException;
+import org.openhab.binding.rflink.type.AllOnOffType;
 
 public class RfLinkSwitchMessageTest {
 
@@ -24,6 +24,7 @@ public class RfLinkSwitchMessageTest {
     public static String INPUT_SWITCH_NEWKAKU_MESSAGE = "20;3B;NewKaku;ID=cac142;SWITCH=3;CMD=OFF;";
     // newKaku specific command with Dimming info (cf. rutgerputter #39)
     public static String INPUT_SWITCH_NEWKAKU_DIM_MESSAGE = "20;04;NewKaku;ID=000007;SWITCH=2;CMD=SET_LEVEL=14;";
+    public static String INPUT_SWITCH_NEWKAKU_ALLON_MESSAGE = "20;3B;NewKaku;ID=cac142;SWITCH=3;CMD=ALLON;";
     public static String INPUT_SWITCH_CONRAD_MESSAGE = "20;41;Conrad RSL2;ID=00010002;SWITCH=03;CMD=ON;";
     public static String OUTPUT_SWITCH_KAKU_MESSAGE = "10;Kaku;0000004d;1;OFF;";
     public static String OUTPUT_SWITCH_KAKU_DIM14_MESSAGE = "10;Kaku;0000004d;1;14;";
@@ -67,16 +68,33 @@ public class RfLinkSwitchMessageTest {
         Map<String, State> states = message.getStates();
         Assert.assertTrue("should contain a 'command' state",
                 states.containsKey(RfLinkBindingConstants.CHANNEL_COMMAND));
-        Assert.assertEquals("unexpected 'command' state", UnDefType.UNDEF,
+        Assert.assertEquals("unexpected 'command' state", OnOffType.ON,
                 states.get(RfLinkBindingConstants.CHANNEL_COMMAND));
         Assert.assertTrue("should contain a 'contact' state",
                 states.containsKey(RfLinkBindingConstants.CHANNEL_CONTACT));
-        Assert.assertEquals("unexpected 'contact' state", UnDefType.UNDEF,
+        Assert.assertEquals("unexpected 'contact' state", OpenClosedType.OPEN,
                 states.get(RfLinkBindingConstants.CHANNEL_CONTACT));
         Assert.assertTrue("should contain a 'dimmingLevel' state",
                 states.containsKey(RfLinkBindingConstants.CHANNEL_DIMMING_LEVEL));
         Assert.assertEquals("unexpected 'dimmingLevel' state", new DecimalType(14),
                 states.get(RfLinkBindingConstants.CHANNEL_DIMMING_LEVEL));
+    }
+
+    @Test
+    public void testEncodeSwitchNewKakuAllOnMessage() {
+        RfLinkSwitchMessage message = new RfLinkSwitchMessage(INPUT_SWITCH_NEWKAKU_ALLON_MESSAGE);
+        Assert.assertEquals("deviceName error", "NewKaku", message.getDeviceName());
+        Assert.assertEquals("deviceId error", "NewKaku-cac142-3", message.getDeviceId());
+        Map<String, State> states = message.getStates();
+        Assert.assertTrue("should contain a 'command' state",
+                states.containsKey(RfLinkBindingConstants.CHANNEL_COMMAND));
+        Assert.assertEquals("unexpected 'command' state", AllOnOffType.ALLON,
+                states.get(RfLinkBindingConstants.CHANNEL_COMMAND));
+        Assert.assertTrue("should contain a 'contact' state",
+                states.containsKey(RfLinkBindingConstants.CHANNEL_CONTACT));
+        Assert.assertEquals("unexpected 'contact' state", OpenClosedType.OPEN,
+                states.get(RfLinkBindingConstants.CHANNEL_CONTACT));
+
     }
 
     @Test
