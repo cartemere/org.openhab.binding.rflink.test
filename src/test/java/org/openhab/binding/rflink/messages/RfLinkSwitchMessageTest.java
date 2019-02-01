@@ -6,6 +6,7 @@ import java.util.Map;
 import org.eclipse.smarthome.core.library.types.DecimalType;
 import org.eclipse.smarthome.core.library.types.OnOffType;
 import org.eclipse.smarthome.core.library.types.OpenClosedType;
+import org.eclipse.smarthome.core.library.types.PercentType;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.types.Command;
 import org.eclipse.smarthome.core.types.State;
@@ -28,6 +29,7 @@ public class RfLinkSwitchMessageTest {
     public static String INPUT_SWITCH_CONRAD_MESSAGE = "20;41;Conrad RSL2;ID=00010002;SWITCH=03;CMD=ON;";
     public static String OUTPUT_SWITCH_KAKU_MESSAGE = "10;Kaku;0000004d;1;OFF;";
     public static String OUTPUT_SWITCH_KAKU_DIM14_MESSAGE = "10;Kaku;0000004d;1;14;";
+    public static String OUTPUT_SWITCH_KAKU_DIM80PERCENT_MESSAGE = "10;Kaku;0000004d;1;12;";
     public static String OUTPUT_SWITCH_KAKU_DIM18_MESSAGE = "10;Kaku;0000004d;1;15;";
     public static String OUTPUT_SWITCH_KAKU_DIM0_MESSAGE = "10;Kaku;0000004d;1;OFF;";
 
@@ -146,6 +148,33 @@ public class RfLinkSwitchMessageTest {
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_SWITCH_KAKU_DIM14_MESSAGE, decodedMessages.iterator().next());
+    }
+
+    @Test
+    public void testDecodeSwitchKakuDim80PercentMessage() throws RfLinkNotImpException, RfLinkException {
+        RfLinkDeviceConfiguration config = MessageTestFactory.getDeviceConfiguration("Kaku-00004d-1", false);
+        ChannelUID channelId = MessageTestFactory.getChannel(RfLinkBindingConstants.CHANNEL_SHUTTER);
+        Command command = new PercentType(80);
+        RfLinkSwitchMessage message = new RfLinkSwitchMessage();
+        message.initializeFromChannel(config, channelId, command);
+        Assert.assertEquals("deviceId error", "Kaku-00004d-1", message.getDeviceId());
+        Assert.assertEquals("deviceName error", "Kaku", message.getDeviceName());
+
+        Map<String, State> states = message.getStates();
+        State stateCommand = states.get(RfLinkBindingConstants.CHANNEL_COMMAND);
+        State stateContact = states.get(RfLinkBindingConstants.CHANNEL_CONTACT);
+        State stateDimming = states.get(RfLinkBindingConstants.CHANNEL_DIMMING_LEVEL);
+        Assert.assertEquals(OnOffType.ON, stateCommand);
+        Assert.assertEquals(OpenClosedType.OPEN, stateContact);
+        // 80% is equal to dimming=12
+        Assert.assertEquals(new DecimalType(12), stateDimming);
+
+        Assert.assertEquals("command error", "12", message.getCommandSuffix());
+        Collection<String> decodedMessages = message.buildMessages();
+        Assert.assertNotNull(decodedMessages);
+        Assert.assertEquals(1, decodedMessages.size());
+        Assert.assertEquals("message error", OUTPUT_SWITCH_KAKU_DIM80PERCENT_MESSAGE,
+                decodedMessages.iterator().next());
     }
 
     @Test
