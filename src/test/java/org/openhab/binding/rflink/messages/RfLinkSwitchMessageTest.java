@@ -16,7 +16,6 @@ import org.openhab.binding.rflink.RfLinkBindingConstants;
 import org.openhab.binding.rflink.config.RfLinkDeviceConfiguration;
 import org.openhab.binding.rflink.exceptions.RfLinkException;
 import org.openhab.binding.rflink.exceptions.RfLinkNotImpException;
-import org.openhab.binding.rflink.type.AllOnOffType;
 
 public class RfLinkSwitchMessageTest {
 
@@ -90,7 +89,7 @@ public class RfLinkSwitchMessageTest {
         Map<String, State> states = message.getStates();
         Assert.assertTrue("should contain a 'command' state",
                 states.containsKey(RfLinkBindingConstants.CHANNEL_COMMAND));
-        Assert.assertEquals("unexpected 'command' state", AllOnOffType.ALLON,
+        Assert.assertEquals("unexpected 'command' state", OnOffType.ON,
                 states.get(RfLinkBindingConstants.CHANNEL_COMMAND));
         Assert.assertTrue("should contain a 'contact' state",
                 states.containsKey(RfLinkBindingConstants.CHANNEL_CONTACT));
