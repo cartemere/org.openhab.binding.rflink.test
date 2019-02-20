@@ -24,8 +24,8 @@ public class RfLinkColorMessageTest {
     @Test
     public void testEncodeMilightRGBWMessage() {
         RfLinkColorMessage message = new RfLinkColorMessage(INPUT_MILIGHT_SWITCH_MESSAGE);
-        Assert.assertEquals("deviceName error", "MiLightv1", message.getDeviceName());
-        Assert.assertEquals("deviceId error", "MiLightv1-F746-00", message.getDeviceId());
+        Assert.assertEquals("deviceName error", "MiLightv1", message.getProtocol());
+        Assert.assertEquals("deviceId error", "MiLightv1-F746-00", message.getDeviceIdKey());
         Map<String, State> states = message.getStates();
         State color = states.get(RfLinkBindingConstants.CHANNEL_COLOR);
         HSBType expectedHSB = new HSBType("39,100,0");
@@ -38,8 +38,8 @@ public class RfLinkColorMessageTest {
     @Test
     public void testEncodeMilightRGBWMessage2() {
         RfLinkColorMessage message = new RfLinkColorMessage(INPUT_MILIGHT_SWITCH_MESSAGE2);
-        Assert.assertEquals("deviceName error", "MiLightv1", message.getDeviceName());
-        Assert.assertEquals("deviceId error", "MiLightv1-F746-02", message.getDeviceId());
+        Assert.assertEquals("deviceName error", "MiLightv1", message.getProtocol());
+        Assert.assertEquals("deviceId error", "MiLightv1-F746-02", message.getDeviceIdKey());
         Map<String, State> states = message.getStates();
         State color = states.get(RfLinkBindingConstants.CHANNEL_COLOR);
         HSBType expectedHSB = new HSBType("144,100,56");

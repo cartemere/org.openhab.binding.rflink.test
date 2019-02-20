@@ -37,8 +37,8 @@ public class RfLinkSwitchMessageTest {
     @Test
     public void testEncodeSwitchKakuMessage() {
         RfLinkSwitchMessage message = new RfLinkSwitchMessage(INPUT_SWITCH_KAKU_MESSAGE);
-        Assert.assertEquals("deviceName error", "Kaku", message.getDeviceName());
-        Assert.assertEquals("deviceId error", "Kaku-41-1", message.getDeviceId());
+        Assert.assertEquals("deviceName error", "Kaku", message.getProtocol());
+        Assert.assertEquals("deviceId error", "Kaku-41-1", message.getDeviceIdKey());
         Assert.assertEquals("deviceId error", OpenClosedType.OPEN, message.contact);
         Assert.assertEquals("deviceId error", OnOffType.ON, message.command);
     }
@@ -46,8 +46,8 @@ public class RfLinkSwitchMessageTest {
     @Test
     public void testEncodeSwitchKakuMessage2() {
         RfLinkSwitchMessage message = new RfLinkSwitchMessage(INPUT_SWITCH_KAKU_MESSAGE2);
-        Assert.assertEquals("deviceName error", "Kaku", message.getDeviceName());
-        Assert.assertEquals("deviceId error", "Kaku-44-4", message.getDeviceId());
+        Assert.assertEquals("deviceName error", "Kaku", message.getProtocol());
+        Assert.assertEquals("deviceId error", "Kaku-44-4", message.getDeviceIdKey());
         Assert.assertEquals("deviceId error", OpenClosedType.CLOSED, message.contact);
         Assert.assertEquals("deviceId error", OnOffType.OFF, message.command);
     }
@@ -55,8 +55,8 @@ public class RfLinkSwitchMessageTest {
     @Test
     public void testEncodeSwitchNewKakuMessage() {
         RfLinkSwitchMessage message = new RfLinkSwitchMessage(INPUT_SWITCH_NEWKAKU_MESSAGE);
-        Assert.assertEquals("deviceName error", "NewKaku", message.getDeviceName());
-        Assert.assertEquals("deviceId error", "NewKaku-cac142-3", message.getDeviceId());
+        Assert.assertEquals("deviceName error", "NewKaku", message.getProtocol());
+        Assert.assertEquals("deviceId error", "NewKaku-cac142-3", message.getDeviceIdKey());
         Assert.assertEquals("deviceId error", OnOffType.OFF, message.command);
         Assert.assertEquals("deviceId error", OpenClosedType.CLOSED, message.contact);
     }
@@ -64,8 +64,8 @@ public class RfLinkSwitchMessageTest {
     @Test
     public void testEncodeSwitchNewKakuDimMessage() {
         RfLinkSwitchMessage message = new RfLinkSwitchMessage(INPUT_SWITCH_NEWKAKU_DIM_MESSAGE);
-        Assert.assertEquals("deviceName error", "NewKaku", message.getDeviceName());
-        Assert.assertEquals("deviceId error", "NewKaku-000007-2", message.getDeviceId());
+        Assert.assertEquals("deviceName error", "NewKaku", message.getProtocol());
+        Assert.assertEquals("deviceId error", "NewKaku-000007-2", message.getDeviceIdKey());
         Map<String, State> states = message.getStates();
         Assert.assertTrue("should contain a 'command' state",
                 states.containsKey(RfLinkBindingConstants.CHANNEL_COMMAND));
@@ -84,8 +84,8 @@ public class RfLinkSwitchMessageTest {
     @Test
     public void testEncodeSwitchNewKakuAllOnMessage() {
         RfLinkSwitchMessage message = new RfLinkSwitchMessage(INPUT_SWITCH_NEWKAKU_ALLON_MESSAGE);
-        Assert.assertEquals("deviceName error", "NewKaku", message.getDeviceName());
-        Assert.assertEquals("deviceId error", "NewKaku-cac142-3", message.getDeviceId());
+        Assert.assertEquals("deviceName error", "NewKaku", message.getProtocol());
+        Assert.assertEquals("deviceId error", "NewKaku-cac142-3", message.getDeviceIdKey());
         Map<String, State> states = message.getStates();
         Assert.assertTrue("should contain a 'command' state",
                 states.containsKey(RfLinkBindingConstants.CHANNEL_COMMAND));
@@ -101,8 +101,8 @@ public class RfLinkSwitchMessageTest {
     @Test
     public void testEncodeSwitchConradMessage() {
         RfLinkSwitchMessage message = new RfLinkSwitchMessage(INPUT_SWITCH_CONRAD_MESSAGE);
-        Assert.assertEquals("deviceName error", "ConradRSL2", message.getDeviceName());
-        Assert.assertEquals("deviceId error", "ConradRSL2-00010002-03", message.getDeviceId());
+        Assert.assertEquals("deviceName error", "ConradRSL2", message.getProtocol());
+        Assert.assertEquals("deviceId error", "ConradRSL2-00010002-03", message.getDeviceIdKey());
         Assert.assertEquals("deviceId error", OpenClosedType.OPEN.toString(), message.contact.toString());
         Assert.assertEquals("deviceId error", OnOffType.ON, message.command);
     }
@@ -114,8 +114,8 @@ public class RfLinkSwitchMessageTest {
         Command command = OnOffType.OFF;
         RfLinkSwitchMessage message = new RfLinkSwitchMessage();
         message.initializeFromChannel(config, channelId, command);
-        Assert.assertEquals("deviceId error", "Kaku-00004d-1", message.getDeviceId());
-        Assert.assertEquals("deviceName error", "Kaku", message.getDeviceName());
+        Assert.assertEquals("deviceId error", "Kaku-00004d-1", message.getDeviceIdKey());
+        Assert.assertEquals("deviceName error", "Kaku", message.getProtocol());
         Assert.assertEquals("command error", OnOffType.OFF, message.command);
 
         Collection<String> decodedMessages = message.buildMessages();
@@ -131,8 +131,8 @@ public class RfLinkSwitchMessageTest {
         Command command = new DecimalType(14);
         RfLinkSwitchMessage message = new RfLinkSwitchMessage();
         message.initializeFromChannel(config, channelId, command);
-        Assert.assertEquals("deviceId error", "Kaku-00004d-1", message.getDeviceId());
-        Assert.assertEquals("deviceName error", "Kaku", message.getDeviceName());
+        Assert.assertEquals("deviceId error", "Kaku-00004d-1", message.getDeviceIdKey());
+        Assert.assertEquals("deviceName error", "Kaku", message.getProtocol());
 
         Map<String, State> states = message.getStates();
         State stateCommand = states.get(RfLinkBindingConstants.CHANNEL_COMMAND);
@@ -156,8 +156,8 @@ public class RfLinkSwitchMessageTest {
         Command command = new PercentType(80);
         RfLinkSwitchMessage message = new RfLinkSwitchMessage();
         message.initializeFromChannel(config, channelId, command);
-        Assert.assertEquals("deviceId error", "Kaku-00004d-1", message.getDeviceId());
-        Assert.assertEquals("deviceName error", "Kaku", message.getDeviceName());
+        Assert.assertEquals("deviceId error", "Kaku-00004d-1", message.getDeviceIdKey());
+        Assert.assertEquals("deviceName error", "Kaku", message.getProtocol());
 
         Map<String, State> states = message.getStates();
         State stateCommand = states.get(RfLinkBindingConstants.CHANNEL_COMMAND);
@@ -183,8 +183,8 @@ public class RfLinkSwitchMessageTest {
         Command command = new DecimalType(18);
         RfLinkSwitchMessage message = new RfLinkSwitchMessage();
         message.initializeFromChannel(config, channelId, command);
-        Assert.assertEquals("deviceId error", "Kaku-00004d-1", message.getDeviceId());
-        Assert.assertEquals("deviceName error", "Kaku", message.getDeviceName());
+        Assert.assertEquals("deviceId error", "Kaku-00004d-1", message.getDeviceIdKey());
+        Assert.assertEquals("deviceName error", "Kaku", message.getProtocol());
 
         Map<String, State> states = message.getStates();
         State stateCommand = states.get(RfLinkBindingConstants.CHANNEL_COMMAND);
@@ -208,8 +208,8 @@ public class RfLinkSwitchMessageTest {
         Command command = new DecimalType(0);
         RfLinkSwitchMessage message = new RfLinkSwitchMessage();
         message.initializeFromChannel(config, channelId, command);
-        Assert.assertEquals("deviceId error", "Kaku-00004d-1", message.getDeviceId());
-        Assert.assertEquals("deviceName error", "Kaku", message.getDeviceName());
+        Assert.assertEquals("deviceId error", "Kaku-00004d-1", message.getDeviceIdKey());
+        Assert.assertEquals("deviceName error", "Kaku", message.getProtocol());
 
         Map<String, State> states = message.getStates();
         State stateCommand = states.get(RfLinkBindingConstants.CHANNEL_COMMAND);
@@ -233,8 +233,8 @@ public class RfLinkSwitchMessageTest {
         Command command = OnOffType.ON;
         RfLinkSwitchMessage message = new RfLinkSwitchMessage();
         message.initializeFromChannel(config, channelId, command);
-        Assert.assertEquals("deviceId error", "HomeConfort-01b523-D3", message.getDeviceId());
-        Assert.assertEquals("deviceName error", "HomeConfort", message.getDeviceName());
+        Assert.assertEquals("deviceId error", "HomeConfort-01b523-D3", message.getDeviceIdKey());
+        Assert.assertEquals("deviceName error", "HomeConfort", message.getProtocol());
         Assert.assertEquals("command error", OnOffType.ON, message.command);
 
         Collection<String> decodedMessages = message.buildMessages();

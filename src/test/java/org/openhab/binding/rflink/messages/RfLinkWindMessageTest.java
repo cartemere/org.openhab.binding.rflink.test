@@ -12,8 +12,8 @@ public class RfLinkWindMessageTest {
     @Test
     public void testEncodeCrestaMessage() {
         RfLinkWindMessage message = new RfLinkWindMessage(INPUT_SWITCH_CRESTA_MESSAGE);
-        Assert.assertEquals("deviceName error", "Cresta", message.getDeviceName());
-        Assert.assertEquals("deviceId error", "Cresta-8001", message.getDeviceId());
+        Assert.assertEquals("deviceName error", "Cresta", message.getProtocol());
+        Assert.assertEquals("deviceId error", "Cresta-8001", message.getDeviceIdKey());
         // ?
         Assert.assertEquals("windSpeed error", 96, message.windSpeed);
         Assert.assertEquals("averageWindSpeed error", 0.0, message.averageWindSpeed, ComparisonUtils.COMPARISON_DELTA);
@@ -26,8 +26,8 @@ public class RfLinkWindMessageTest {
     @Test
     public void testEncodeOregonMessage() {
         RfLinkWindMessage message = new RfLinkWindMessage(INPUT_SWITCH_OREGON_MESSAGE);
-        Assert.assertEquals("deviceName error", "OregonWind", message.getDeviceName());
-        Assert.assertEquals("deviceId error", "OregonWind-1a89", message.getDeviceId());
+        Assert.assertEquals("deviceName error", "OregonWind", message.getProtocol());
+        Assert.assertEquals("deviceId error", "OregonWind-1a89", message.getDeviceIdKey());
         // ?
         Assert.assertEquals("windSpeed error", 104, message.windSpeed);
         Assert.assertEquals("averageWindSpeed error", 8.0, message.averageWindSpeed, ComparisonUtils.COMPARISON_DELTA);
@@ -40,8 +40,8 @@ public class RfLinkWindMessageTest {
     @Test
     public void testEncodeOregon2Message() {
         RfLinkWindMessage message = new RfLinkWindMessage(INPUT_SWITCH_OREGON_MESSAGE2);
-        Assert.assertEquals("deviceName error", "OregonWind2", message.getDeviceName());
-        Assert.assertEquals("deviceId error", "OregonWind2-3a0d", message.getDeviceId());
+        Assert.assertEquals("deviceName error", "OregonWind2", message.getProtocol());
+        Assert.assertEquals("deviceId error", "OregonWind2-3a0d", message.getDeviceIdKey());
         // ?
         Assert.assertEquals("windSpeed error", 64, message.windSpeed);
         Assert.assertEquals("averageWindSpeed error", 9.0, message.averageWindSpeed, ComparisonUtils.COMPARISON_DELTA);

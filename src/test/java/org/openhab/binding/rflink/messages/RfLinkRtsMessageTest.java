@@ -16,7 +16,7 @@ import org.openhab.binding.rflink.exceptions.RfLinkNotImpException;
 
 public class RfLinkRtsMessageTest {
 
-    public static String INPUT_RTS_SWITCH_MESSAGE = "20;39;RTS;ID=1a602a;SWITCH=01;CMD=DOWN;";
+    public static String INPUT_RTS_SWITCH_MESSAGE = "20;39;RTS;ID=1a602a;SWITCH=0;CMD=DOWN;";
     public static String OUTPUT_RTS_DOWN_MESSAGE = "10;RTS;00OFOFF1;1;DOWN;";
     public static String OUTPUT_RTS_UP_MESSAGE = "10;RTS;00OFOFF1;1;UP;";
     public static String OUTPUT_RTS_STOP_MESSAGE = "10;RTS;00OFOFF1;1;STOP;";
@@ -26,8 +26,13 @@ public class RfLinkRtsMessageTest {
     @Test
     public void testEncodeMessage() {
         RfLinkRtsMessage message = new RfLinkRtsMessage(INPUT_RTS_SWITCH_MESSAGE);
-        Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
-        Assert.assertEquals("deviceId error", "RTS-1a602a", message.getDeviceId());
+        Assert.assertEquals("deviceName error", "RTS", message.getProtocol());
+        Assert.assertEquals("deviceId error", "RTS-1a602a-0", message.getDeviceIdKey());
+        Assert.assertEquals(OnOffType.OFF,
+                ComparisonUtils.getFromStates(message, RfLinkBindingConstants.CHANNEL_SHUTTER));
+        Assert.assertEquals(UpDownType.DOWN,
+                ComparisonUtils.getFromStates(message, RfLinkBindingConstants.CHANNEL_COMMAND));
+
     }
 
     @Test
@@ -37,8 +42,8 @@ public class RfLinkRtsMessageTest {
         Command command = UpDownType.DOWN;
         RfLinkRtsMessage message = new RfLinkRtsMessage();
         message.initializeFromChannel(config, channelId, command);
-        Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceId());
-        Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
+        Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceIdKey());
+        Assert.assertEquals("deviceName error", "RTS", message.getProtocol());
         Assert.assertEquals("command error", UpDownType.DOWN, message.command);
 
         Collection<String> decodedMessages = message.buildMessages();
@@ -54,8 +59,8 @@ public class RfLinkRtsMessageTest {
         Command command = OnOffType.ON;
         RfLinkRtsMessage message = new RfLinkRtsMessage();
         message.initializeFromChannel(config, channelId, command);
-        Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceId());
-        Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
+        Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceIdKey());
+        Assert.assertEquals("deviceName error", "RTS", message.getProtocol());
         Assert.assertEquals("command error", UpDownType.UP, message.command);
 
         Collection<String> decodedMessages = message.buildMessages();
@@ -71,8 +76,8 @@ public class RfLinkRtsMessageTest {
         Command command = UpDownType.DOWN;
         RfLinkRtsMessage message = new RfLinkRtsMessage();
         message.initializeFromChannel(config, channelId, command);
-        Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceId());
-        Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
+        Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceIdKey());
+        Assert.assertEquals("deviceName error", "RTS", message.getProtocol());
         Assert.assertEquals("command error", UpDownType.UP, message.command);
 
         Collection<String> decodedMessages = message.buildMessages();
@@ -88,8 +93,8 @@ public class RfLinkRtsMessageTest {
         Command command = OnOffType.ON;
         RfLinkRtsMessage message = new RfLinkRtsMessage();
         message.initializeFromChannel(config, channelId, command);
-        Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceId());
-        Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
+        Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceIdKey());
+        Assert.assertEquals("deviceName error", "RTS", message.getProtocol());
         Assert.assertEquals("command error", UpDownType.DOWN, message.command);
 
         Collection<String> decodedMessages = message.buildMessages();
@@ -106,8 +111,8 @@ public class RfLinkRtsMessageTest {
         Command command = StopMoveType.STOP;
         RfLinkRtsMessage message = new RfLinkRtsMessage();
         message.initializeFromChannel(config, channelId, command);
-        Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceId());
-        Assert.assertEquals("deviceName error", "RTS", message.getDeviceName());
+        Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", message.getDeviceIdKey());
+        Assert.assertEquals("deviceName error", "RTS", message.getProtocol());
         Assert.assertEquals("command error", StopMoveType.STOP, message.command);
 
         Collection<String> decodedMessages = message.buildMessages();
