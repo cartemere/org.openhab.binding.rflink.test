@@ -2,7 +2,7 @@ package org.openhab.binding.rflink.data;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.openhab.binding.rflink.messages.RfLinkDataParser;
+import org.openhab.binding.rflink.device.RfLinkDataParser;
 
 public class RfLinkDataParserUtil {
 

@@ -1,7 +1,11 @@
 package org.openhab.binding.rflink.messages;
 
+import org.eclipse.smarthome.core.library.types.DecimalType;
 import org.junit.Assert;
 import org.junit.Test;
+import org.openhab.binding.rflink.RfLinkBindingConstants;
+import org.openhab.binding.rflink.device.RfLinkWindDevice;
+import org.openhab.binding.rflink.message.RfLinkMessage;
 
 public class RfLinkWindMessageTest {
 
@@ -11,43 +15,49 @@ public class RfLinkWindMessageTest {
 
     @Test
     public void testEncodeCrestaMessage() {
-        RfLinkWindMessage message = new RfLinkWindMessage(INPUT_SWITCH_CRESTA_MESSAGE);
-        Assert.assertEquals("deviceName error", "Cresta", message.getProtocol());
-        Assert.assertEquals("deviceId error", "Cresta-8001", message.getDeviceIdKey());
+        RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_CRESTA_MESSAGE);
+        RfLinkWindDevice device = new RfLinkWindDevice();
+        device.initializeFromMessage(message);
+        Assert.assertEquals("deviceName error", "Cresta", device.getProtocol());
+        Assert.assertEquals("deviceId error", "Cresta-8001", device.getKey());
         // ?
-        Assert.assertEquals("windSpeed error", 96, message.windSpeed);
-        Assert.assertEquals("averageWindSpeed error", 0.0, message.averageWindSpeed, ComparisonUtils.COMPARISON_DELTA);
-        Assert.assertEquals("windDirection error", 45.0, message.windDirection, ComparisonUtils.COMPARISON_DELTA);
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_WIND_SPEED, new DecimalType(96));
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_AVERAGE_WIND_SPEED, new DecimalType(0.0));
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_WIND_DIRECTION, new DecimalType(45.0));
         // int ?
-        Assert.assertEquals("windGust error", 136, message.windGust, ComparisonUtils.COMPARISON_DELTA);
-        Assert.assertEquals("windChill error", 17.6, message.windChill, ComparisonUtils.COMPARISON_DELTA);
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_GUST, new DecimalType(136));
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_WIND_CHILL, new DecimalType(17.6));
     }
 
     @Test
     public void testEncodeOregonMessage() {
-        RfLinkWindMessage message = new RfLinkWindMessage(INPUT_SWITCH_OREGON_MESSAGE);
-        Assert.assertEquals("deviceName error", "OregonWind", message.getProtocol());
-        Assert.assertEquals("deviceId error", "OregonWind-1a89", message.getDeviceIdKey());
+        RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_OREGON_MESSAGE);
+        RfLinkWindDevice device = new RfLinkWindDevice();
+        device.initializeFromMessage(message);
+        Assert.assertEquals("deviceName error", "OregonWind", device.getProtocol());
+        Assert.assertEquals("deviceId error", "OregonWind-1a89", device.getKey());
         // ?
-        Assert.assertEquals("windSpeed error", 104, message.windSpeed);
-        Assert.assertEquals("averageWindSpeed error", 8.0, message.averageWindSpeed, ComparisonUtils.COMPARISON_DELTA);
-        Assert.assertEquals("windDirection error", 69.0, message.windDirection, ComparisonUtils.COMPARISON_DELTA);
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_WIND_SPEED, new DecimalType(104));
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_AVERAGE_WIND_SPEED, new DecimalType(8.0));
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_WIND_DIRECTION, new DecimalType(69.0));
         // int ?
-        Assert.assertEquals("windGust error", 0, message.windGust, ComparisonUtils.COMPARISON_DELTA);
-        Assert.assertEquals("windChill error", 0, message.windChill, ComparisonUtils.COMPARISON_DELTA);
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_GUST, new DecimalType(0));
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_WIND_CHILL, new DecimalType(0));
     }
 
     @Test
     public void testEncodeOregon2Message() {
-        RfLinkWindMessage message = new RfLinkWindMessage(INPUT_SWITCH_OREGON_MESSAGE2);
-        Assert.assertEquals("deviceName error", "OregonWind2", message.getProtocol());
-        Assert.assertEquals("deviceId error", "OregonWind2-3a0d", message.getDeviceIdKey());
+        RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_OREGON_MESSAGE2);
+        RfLinkWindDevice device = new RfLinkWindDevice();
+        device.initializeFromMessage(message);
+        Assert.assertEquals("deviceName error", "OregonWind2", device.getProtocol());
+        Assert.assertEquals("deviceId error", "OregonWind2-3a0d", device.getKey());
         // ?
-        Assert.assertEquals("windSpeed error", 64, message.windSpeed);
-        Assert.assertEquals("averageWindSpeed error", 9.0, message.averageWindSpeed, ComparisonUtils.COMPARISON_DELTA);
-        Assert.assertEquals("windDirection error", 33.0, message.windDirection, ComparisonUtils.COMPARISON_DELTA);
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_WIND_SPEED, new DecimalType(64));
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_AVERAGE_WIND_SPEED, new DecimalType(9.0));
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_WIND_DIRECTION, new DecimalType(33.0));
         // int ?
-        Assert.assertEquals("windGust error", 0, message.windGust, ComparisonUtils.COMPARISON_DELTA);
-        Assert.assertEquals("windChill error", 0, message.windChill, ComparisonUtils.COMPARISON_DELTA);
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_GUST, new DecimalType(0));
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_WIND_CHILL, new DecimalType(0));
     }
 }

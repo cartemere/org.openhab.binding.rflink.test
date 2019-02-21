@@ -1,7 +1,13 @@
 package org.openhab.binding.rflink.messages;
 
+import org.eclipse.smarthome.core.library.types.DecimalType;
+import org.eclipse.smarthome.core.library.types.OnOffType;
+import org.eclipse.smarthome.core.library.types.StringType;
 import org.junit.Assert;
 import org.junit.Test;
+import org.openhab.binding.rflink.RfLinkBindingConstants;
+import org.openhab.binding.rflink.device.RfLinkTempHygroDevice;
+import org.openhab.binding.rflink.message.RfLinkMessage;
 
 public class RfLinkOregonTempHygroMessageTest {
 
@@ -10,23 +16,30 @@ public class RfLinkOregonTempHygroMessageTest {
 
     @Test
     public void testDecodeMessage1() {
-        RfLinkOregonTempHygroMessage message = new RfLinkOregonTempHygroMessage(INPUT_ORE_TEMPHYGRO_MESSAGE);
-        Assert.assertEquals("deviceName error", "OregonTempHygro", message.getProtocol());
-        Assert.assertEquals("deviceId error", "OregonTempHygro-0ACC", message.getDeviceIdKey());
-        Assert.assertEquals("battery status error", RfLinkOregonTempHygroMessage.Commands.OFF, message.battery_status);
-        Assert.assertEquals("humidity value error", 40, message.humidity);
-        Assert.assertEquals("humidity status error", "UNKNOWN", message.humidity_status);
-        Assert.assertEquals("temperature error", 19.0, message.temperature, 0.0001);
+        RfLinkMessage message = new RfLinkMessage(INPUT_ORE_TEMPHYGRO_MESSAGE);
+        RfLinkTempHygroDevice device = new RfLinkTempHygroDevice();
+        device.initializeFromMessage(message);
+        Assert.assertEquals("deviceName error", "OregonTempHygro", device.getProtocol());
+        Assert.assertEquals("deviceId error", "OregonTempHygro-0ACC", device.getKey());
+
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_LOW_BATTERY, OnOffType.OFF);
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_TEMPERATURE, new DecimalType(19.0));
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_HUMIDITY, new DecimalType(40));
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_HUMIDITY_STATUS, new StringType("UNKNOWN"));
     }
 
     @Test
     public void testDecodeMessage2() {
-        RfLinkOregonTempHygroMessage message = new RfLinkOregonTempHygroMessage(INPUT_ORE_TEMPHYGRO_MESSAGE2);
-        Assert.assertEquals("deviceName error", "OregonTempHygro", message.getProtocol());
-        Assert.assertEquals("deviceId error", "OregonTempHygro-1a2d", message.getDeviceIdKey());
-        Assert.assertEquals("battery status error", RfLinkOregonTempHygroMessage.Commands.ON, message.battery_status);
-        Assert.assertEquals("humidity value error", 43, message.humidity);
-        Assert.assertEquals("humidity status error", "UNKNOWN", message.humidity_status);
-        Assert.assertEquals("temperature error", 22.1, message.temperature, 0.0001);
+
+        RfLinkMessage message = new RfLinkMessage(INPUT_ORE_TEMPHYGRO_MESSAGE2);
+        RfLinkTempHygroDevice device = new RfLinkTempHygroDevice();
+        device.initializeFromMessage(message);
+        Assert.assertEquals("deviceName error", "OregonTempHygro", device.getProtocol());
+        Assert.assertEquals("deviceId error", "OregonTempHygro-1a2d", device.getKey());
+
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_LOW_BATTERY, OnOffType.ON);
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_TEMPERATURE, new DecimalType(22.1));
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_HUMIDITY, new DecimalType(43));
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_HUMIDITY_STATUS, new StringType("UNKNOWN"));
     }
 }

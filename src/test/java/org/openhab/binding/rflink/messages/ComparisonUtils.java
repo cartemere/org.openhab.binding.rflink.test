@@ -1,12 +1,12 @@
 package org.openhab.binding.rflink.messages;
 
 import org.eclipse.smarthome.core.types.State;
+import org.junit.Assert;
+import org.openhab.binding.rflink.device.RfLinkDevice;
 
-public class ComparisonUtils {
+public class ComparisonUtils<T> {
 
-    public static final double COMPARISON_DELTA = 0.001;
-
-    public static State getFromStates(RfLinkMessage message, String key) {
-        return message.getStates().get(key);
+    public static void checkState(RfLinkDevice device, String key, State expectedState) {
+        Assert.assertEquals(key + " error", expectedState, device.getState(key));
     }
 }

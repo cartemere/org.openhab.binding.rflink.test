@@ -24,7 +24,7 @@ Import-Package:
  org.junit.runners,
  org.openhab.binding.rflink,
  org.openhab.binding.rflink.config,
+ org.openhab.binding.rflink.device,
  org.openhab.binding.rflink.handler,
- org.openhab.binding.rflink.messages,
  org.osgi.service.device,
  org.slf4j
