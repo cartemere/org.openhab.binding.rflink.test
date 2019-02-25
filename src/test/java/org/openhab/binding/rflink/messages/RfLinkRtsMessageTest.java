@@ -3,6 +3,7 @@ package org.openhab.binding.rflink.messages;
 import java.util.Collection;
 
 import org.eclipse.smarthome.core.library.types.OnOffType;
+import org.eclipse.smarthome.core.library.types.OpenClosedType;
 import org.eclipse.smarthome.core.library.types.StopMoveType;
 import org.eclipse.smarthome.core.library.types.UpDownType;
 import org.eclipse.smarthome.core.thing.ChannelUID;
@@ -11,6 +12,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openhab.binding.rflink.RfLinkBindingConstants;
 import org.openhab.binding.rflink.config.RfLinkDeviceConfiguration;
+import org.openhab.binding.rflink.device.RfLinkDevice;
+import org.openhab.binding.rflink.device.RfLinkDeviceFactory;
 import org.openhab.binding.rflink.device.RfLinkRtsDevice;
 import org.openhab.binding.rflink.exceptions.RfLinkException;
 import org.openhab.binding.rflink.exceptions.RfLinkNotImpException;
@@ -26,15 +29,15 @@ public class RfLinkRtsMessageTest {
     public static String OUTPUT_RTS_OFF_MESSAGE = "10;RTS;00OFOFF1;1;DOWN;";
 
     @Test
-    public void testEncodeMessage() {
+    public void testEncodeMessage() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_RTS_SWITCH_MESSAGE);
-        RfLinkRtsDevice device = new RfLinkRtsDevice();
+        RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message); // for now, generate Switch device
         device.initializeFromMessage(message);
         Assert.assertEquals("deviceName error", "RTS", device.getProtocol());
         Assert.assertEquals("deviceId error", "RTS-1a602a-0", device.getKey());
 
-        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_SHUTTER, OnOffType.OFF);
-        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, UpDownType.DOWN);
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_CONTACT, OpenClosedType.CLOSED);
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, OnOffType.OFF);
     }
 
     @Test

@@ -12,6 +12,8 @@ import org.junit.Test;
 import org.openhab.binding.rflink.RfLinkBindingConstants;
 import org.openhab.binding.rflink.config.RfLinkDeviceConfiguration;
 import org.openhab.binding.rflink.device.RfLinkColorDevice;
+import org.openhab.binding.rflink.device.RfLinkDevice;
+import org.openhab.binding.rflink.device.RfLinkDeviceFactory;
 import org.openhab.binding.rflink.exceptions.RfLinkException;
 import org.openhab.binding.rflink.exceptions.RfLinkNotImpException;
 import org.openhab.binding.rflink.message.RfLinkMessage;
@@ -24,9 +26,9 @@ public class RfLinkColorMessageTest {
     public static String OUTPUT_MILIGHT_BRIGHT_MESSAGE = "10;MiLightv1;0000F746;00;858E;BRIGHT;";
 
     @Test
-    public void testEncodeMilightRGBWMessage() {
+    public void testEncodeMilightRGBWMessage() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_MILIGHT_SWITCH_MESSAGE);
-        RfLinkColorDevice device = new RfLinkColorDevice();
+        RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
         device.initializeFromMessage(message);
 
         Assert.assertEquals("deviceName error", "MiLightv1", device.getProtocol());
@@ -41,9 +43,9 @@ public class RfLinkColorMessageTest {
     }
 
     @Test
-    public void testEncodeMilightRGBWMessage2() {
+    public void testEncodeMilightRGBWMessage2() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_MILIGHT_SWITCH_MESSAGE2);
-        RfLinkColorDevice device = new RfLinkColorDevice();
+        RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
         device.initializeFromMessage(message);
 
         Assert.assertEquals("deviceName error", "MiLightv1", device.getProtocol());

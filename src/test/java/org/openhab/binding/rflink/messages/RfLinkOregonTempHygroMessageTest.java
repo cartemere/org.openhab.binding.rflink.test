@@ -6,7 +6,10 @@ import org.eclipse.smarthome.core.library.types.StringType;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openhab.binding.rflink.RfLinkBindingConstants;
-import org.openhab.binding.rflink.device.RfLinkTempHygroDevice;
+import org.openhab.binding.rflink.device.RfLinkDevice;
+import org.openhab.binding.rflink.device.RfLinkDeviceFactory;
+import org.openhab.binding.rflink.exceptions.RfLinkException;
+import org.openhab.binding.rflink.exceptions.RfLinkNotImpException;
 import org.openhab.binding.rflink.message.RfLinkMessage;
 
 public class RfLinkOregonTempHygroMessageTest {
@@ -15,9 +18,9 @@ public class RfLinkOregonTempHygroMessageTest {
     public static String INPUT_ORE_TEMPHYGRO_MESSAGE2 = "20;b3;Oregon TempHygro;ID=1a2d;TEMP=00dd;HUM=43;BAT=LOW;";
 
     @Test
-    public void testDecodeMessage1() {
+    public void testDecodeMessage1() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_ORE_TEMPHYGRO_MESSAGE);
-        RfLinkTempHygroDevice device = new RfLinkTempHygroDevice();
+        RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
         device.initializeFromMessage(message);
         Assert.assertEquals("deviceName error", "OregonTempHygro", device.getProtocol());
         Assert.assertEquals("deviceId error", "OregonTempHygro-0ACC", device.getKey());
@@ -29,10 +32,9 @@ public class RfLinkOregonTempHygroMessageTest {
     }
 
     @Test
-    public void testDecodeMessage2() {
-
+    public void testDecodeMessage2() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_ORE_TEMPHYGRO_MESSAGE2);
-        RfLinkTempHygroDevice device = new RfLinkTempHygroDevice();
+        RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
         device.initializeFromMessage(message);
         Assert.assertEquals("deviceName error", "OregonTempHygro", device.getProtocol());
         Assert.assertEquals("deviceId error", "OregonTempHygro-1a2d", device.getKey());

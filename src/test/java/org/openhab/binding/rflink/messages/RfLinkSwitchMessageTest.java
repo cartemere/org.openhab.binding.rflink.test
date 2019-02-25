@@ -13,6 +13,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openhab.binding.rflink.RfLinkBindingConstants;
 import org.openhab.binding.rflink.config.RfLinkDeviceConfiguration;
+import org.openhab.binding.rflink.device.RfLinkDevice;
+import org.openhab.binding.rflink.device.RfLinkDeviceFactory;
 import org.openhab.binding.rflink.device.RfLinkSwitchDevice;
 import org.openhab.binding.rflink.exceptions.RfLinkException;
 import org.openhab.binding.rflink.exceptions.RfLinkNotImpException;
@@ -36,9 +38,9 @@ public class RfLinkSwitchMessageTest {
     public static String OUTPUT_SWITCH_HOMECONFORT_MESSAGE = "10;HomeConfort;0001b523;D3;ON;";
 
     @Test
-    public void testEncodeSwitchKakuMessage() {
+    public void testEncodeSwitchKakuMessage() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_KAKU_MESSAGE);
-        RfLinkSwitchDevice device = new RfLinkSwitchDevice();
+        RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
         device.initializeFromMessage(message);
         Assert.assertEquals("deviceName error", "Kaku", device.getProtocol());
         Assert.assertEquals("deviceId error", "Kaku-41-1", device.getKey());
@@ -47,10 +49,9 @@ public class RfLinkSwitchMessageTest {
     }
 
     @Test
-    public void testEncodeSwitchKakuMessage2() {
-
+    public void testEncodeSwitchKakuMessage2() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_KAKU_MESSAGE2);
-        RfLinkSwitchDevice device = new RfLinkSwitchDevice();
+        RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
         device.initializeFromMessage(message);
         Assert.assertEquals("deviceName error", "Kaku", device.getProtocol());
         Assert.assertEquals("deviceId error", "Kaku-44-4", device.getKey());
@@ -59,10 +60,9 @@ public class RfLinkSwitchMessageTest {
     }
 
     @Test
-    public void testEncodeSwitchNewKakuMessage() {
-
+    public void testEncodeSwitchNewKakuMessage() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_NEWKAKU_MESSAGE);
-        RfLinkSwitchDevice device = new RfLinkSwitchDevice();
+        RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
         device.initializeFromMessage(message);
         Assert.assertEquals("deviceName error", "NewKaku", device.getProtocol());
         Assert.assertEquals("deviceId error", "NewKaku-cac142-3", device.getKey());
@@ -71,10 +71,9 @@ public class RfLinkSwitchMessageTest {
     }
 
     @Test
-    public void testEncodeSwitchNewKakuDimMessage() {
-
+    public void testEncodeSwitchNewKakuDimMessage() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_NEWKAKU_DIM_MESSAGE);
-        RfLinkSwitchDevice device = new RfLinkSwitchDevice();
+        RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
         device.initializeFromMessage(message);
         Assert.assertEquals("deviceName error", "NewKaku", device.getProtocol());
         Assert.assertEquals("deviceId error", "NewKaku-000007-2", device.getKey());
@@ -84,10 +83,9 @@ public class RfLinkSwitchMessageTest {
     }
 
     @Test
-    public void testEncodeSwitchNewKakuAllOnMessage() {
-
+    public void testEncodeSwitchNewKakuAllOnMessage() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_NEWKAKU_ALLON_MESSAGE);
-        RfLinkSwitchDevice device = new RfLinkSwitchDevice();
+        RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
         device.initializeFromMessage(message);
         Assert.assertEquals("deviceName error", "NewKaku", device.getProtocol());
         Assert.assertEquals("deviceId error", "NewKaku-cac142-3", device.getKey());
@@ -96,10 +94,9 @@ public class RfLinkSwitchMessageTest {
     }
 
     @Test
-    public void testEncodeSwitchConradMessage() {
-
+    public void testEncodeSwitchConradMessage() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_CONRAD_MESSAGE);
-        RfLinkSwitchDevice device = new RfLinkSwitchDevice();
+        RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
         device.initializeFromMessage(message);
         Assert.assertEquals("deviceName error", "ConradRSL2", device.getProtocol());
         Assert.assertEquals("deviceId error", "ConradRSL2-00010002-03", device.getKey());
