@@ -3,7 +3,6 @@ package org.openhab.binding.rflink.messages;
 import java.util.Collection;
 
 import org.eclipse.smarthome.core.library.types.OnOffType;
-import org.eclipse.smarthome.core.library.types.OpenClosedType;
 import org.eclipse.smarthome.core.library.types.StopMoveType;
 import org.eclipse.smarthome.core.library.types.UpDownType;
 import org.eclipse.smarthome.core.thing.ChannelUID;
@@ -36,8 +35,9 @@ public class RfLinkRtsMessageTest {
         Assert.assertEquals("deviceName error", "RTS", device.getProtocol());
         Assert.assertEquals("deviceId error", "RTS-1a602a-0", device.getKey());
 
-        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_CONTACT, OpenClosedType.CLOSED);
-        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, OnOffType.OFF);
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_CONTACT, null);
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_SHUTTER, OnOffType.OFF);
+        ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, UpDownType.DOWN);
     }
 
     @Test
