@@ -21,11 +21,11 @@ import org.openhab.binding.rflink.message.RfLinkMessage;
 public class RfLinkRtsMessageTest {
 
     public static String INPUT_RTS_SWITCH_MESSAGE = "20;39;RTS;ID=1a602a;SWITCH=0;CMD=DOWN;";
-    public static String OUTPUT_RTS_DOWN_MESSAGE = "10;RTS;00OFOFF1;1;DOWN;";
-    public static String OUTPUT_RTS_UP_MESSAGE = "10;RTS;00OFOFF1;1;UP;";
-    public static String OUTPUT_RTS_STOP_MESSAGE = "10;RTS;00OFOFF1;1;STOP;";
-    public static String OUTPUT_RTS_ON_MESSAGE = "10;RTS;00OFOFF1;1;UP;";
-    public static String OUTPUT_RTS_OFF_MESSAGE = "10;RTS;00OFOFF1;1;DOWN;";
+    public static String OUTPUT_RTS_DOWN_MESSAGE = "10;RTS;000F0FF1;0;DOWN;";
+    public static String OUTPUT_RTS_UP_MESSAGE = "10;RTS;000F0FF1;0;UP;";
+    public static String OUTPUT_RTS_STOP_MESSAGE = "10;RTS;000F0FF1;0;STOP;";
+    public static String OUTPUT_RTS_ON_MESSAGE = "10;RTS;000F0FF1;0;UP;";
+    public static String OUTPUT_RTS_OFF_MESSAGE = "10;RTS;000F0FF1;0;DOWN;";
 
     @Test
     public void testEncodeMessage() throws RfLinkException, RfLinkNotImpException {
@@ -42,12 +42,12 @@ public class RfLinkRtsMessageTest {
 
     @Test
     public void testDecodeShutterMessage() throws RfLinkNotImpException, RfLinkException {
-        RfLinkDeviceConfiguration config = MessageTestFactory.getDeviceConfiguration("RTS-OFOFF1-1", false);
+        RfLinkDeviceConfiguration config = MessageTestFactory.getDeviceConfiguration("RTS-0F0FF1-0", false);
         ChannelUID channelId = MessageTestFactory.getChannel(RfLinkBindingConstants.CHANNEL_SHUTTER);
         Command command = UpDownType.DOWN;
         RfLinkRtsDevice device = new RfLinkRtsDevice();
         device.initializeFromChannel(config, channelId, command);
-        Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", device.getKey());
+        Assert.assertEquals("deviceId error", "RTS-0F0FF1-0", device.getKey());
         Assert.assertEquals("deviceName error", "RTS", device.getProtocol());
 
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, UpDownType.DOWN);
@@ -60,12 +60,12 @@ public class RfLinkRtsMessageTest {
 
     @Test
     public void testDecodeCommandMessage() throws RfLinkNotImpException, RfLinkException {
-        RfLinkDeviceConfiguration config = MessageTestFactory.getDeviceConfiguration("RTS-OFOFF1-1", false);
+        RfLinkDeviceConfiguration config = MessageTestFactory.getDeviceConfiguration("RTS-0F0FF1-0", false);
         ChannelUID channelId = MessageTestFactory.getChannel(RfLinkBindingConstants.CHANNEL_COMMAND);
         Command command = OnOffType.ON;
         RfLinkRtsDevice device = new RfLinkRtsDevice();
         device.initializeFromChannel(config, channelId, command);
-        Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", device.getKey());
+        Assert.assertEquals("deviceId error", "RTS-0F0FF1-0", device.getKey());
         Assert.assertEquals("deviceName error", "RTS", device.getProtocol());
 
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, UpDownType.UP);
@@ -78,12 +78,12 @@ public class RfLinkRtsMessageTest {
 
     @Test
     public void testDecodeShutterReverseMessage() throws RfLinkNotImpException, RfLinkException {
-        RfLinkDeviceConfiguration config = MessageTestFactory.getDeviceConfiguration("RTS-OFOFF1-1", true);
+        RfLinkDeviceConfiguration config = MessageTestFactory.getDeviceConfiguration("RTS-0F0FF1-0", true);
         ChannelUID channelId = MessageTestFactory.getChannel(RfLinkBindingConstants.CHANNEL_SHUTTER);
         Command command = UpDownType.DOWN;
         RfLinkRtsDevice device = new RfLinkRtsDevice();
         device.initializeFromChannel(config, channelId, command);
-        Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", device.getKey());
+        Assert.assertEquals("deviceId error", "RTS-0F0FF1-0", device.getKey());
         Assert.assertEquals("deviceName error", "RTS", device.getProtocol());
 
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, UpDownType.UP);
@@ -96,12 +96,12 @@ public class RfLinkRtsMessageTest {
 
     @Test
     public void testDecodeCommandReverseMessage() throws RfLinkNotImpException, RfLinkException {
-        RfLinkDeviceConfiguration config = MessageTestFactory.getDeviceConfiguration("RTS-OFOFF1-1", true);
+        RfLinkDeviceConfiguration config = MessageTestFactory.getDeviceConfiguration("RTS-0F0FF1-0", true);
         ChannelUID channelId = MessageTestFactory.getChannel(RfLinkBindingConstants.CHANNEL_SHUTTER);
         Command command = OnOffType.ON;
         RfLinkRtsDevice device = new RfLinkRtsDevice();
         device.initializeFromChannel(config, channelId, command);
-        Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", device.getKey());
+        Assert.assertEquals("deviceId error", "RTS-0F0FF1-0", device.getKey());
         Assert.assertEquals("deviceName error", "RTS", device.getProtocol());
 
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, UpDownType.DOWN);
@@ -115,12 +115,12 @@ public class RfLinkRtsMessageTest {
 
     @Test
     public void testDecodeShutterStopMessage() throws RfLinkNotImpException, RfLinkException {
-        RfLinkDeviceConfiguration config = MessageTestFactory.getDeviceConfiguration("RTS-OFOFF1-1", true);
+        RfLinkDeviceConfiguration config = MessageTestFactory.getDeviceConfiguration("RTS-0F0FF1-0", true);
         ChannelUID channelId = MessageTestFactory.getChannel(RfLinkBindingConstants.CHANNEL_SHUTTER);
         Command command = StopMoveType.STOP;
         RfLinkRtsDevice device = new RfLinkRtsDevice();
         device.initializeFromChannel(config, channelId, command);
-        Assert.assertEquals("deviceId error", "RTS-OFOFF1-1", device.getKey());
+        Assert.assertEquals("deviceId error", "RTS-0F0FF1-0", device.getKey());
         Assert.assertEquals("deviceName error", "RTS", device.getProtocol());
         Assert.assertEquals("command error", StopMoveType.STOP, device.command);
 
