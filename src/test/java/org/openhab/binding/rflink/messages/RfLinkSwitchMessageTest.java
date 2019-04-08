@@ -29,13 +29,13 @@ public class RfLinkSwitchMessageTest {
     public static String INPUT_SWITCH_NEWKAKU_DIM_MESSAGE = "20;04;NewKaku;ID=000007;SWITCH=2;CMD=SET_LEVEL=14;";
     public static String INPUT_SWITCH_NEWKAKU_ALLON_MESSAGE = "20;3B;NewKaku;ID=cac142;SWITCH=3;CMD=ALLON;";
     public static String INPUT_SWITCH_CONRAD_MESSAGE = "20;41;Conrad RSL2;ID=00010002;SWITCH=03;CMD=ON;";
-    public static String OUTPUT_SWITCH_KAKU_MESSAGE = "10;Kaku;0000004d;1;OFF;";
-    public static String OUTPUT_SWITCH_KAKU_DIM14_MESSAGE = "10;Kaku;0000004d;1;14;";
-    public static String OUTPUT_SWITCH_KAKU_DIM80PERCENT_MESSAGE = "10;Kaku;0000004d;1;12;";
-    public static String OUTPUT_SWITCH_KAKU_DIM18_MESSAGE = "10;Kaku;0000004d;1;15;";
-    public static String OUTPUT_SWITCH_KAKU_DIM0_MESSAGE = "10;Kaku;0000004d;1;OFF;";
+    public static String OUTPUT_SWITCH_KAKU_MESSAGE = "10;Kaku;00004d;1;OFF;";
+    public static String OUTPUT_SWITCH_KAKU_DIM14_MESSAGE = "10;Kaku;00004d;1;14;";
+    public static String OUTPUT_SWITCH_KAKU_DIM80PERCENT_MESSAGE = "10;Kaku;00004d;1;12;";
+    public static String OUTPUT_SWITCH_KAKU_DIM18_MESSAGE = "10;Kaku;00004d;1;15;";
+    public static String OUTPUT_SWITCH_KAKU_DIM0_MESSAGE = "10;Kaku;00004d;1;OFF;";
 
-    public static String OUTPUT_SWITCH_HOMECONFORT_MESSAGE = "10;HomeConfort;0001b523;D3;ON;";
+    public static String OUTPUT_SWITCH_HOMECONFORT_MESSAGE = "10;HomeConfort;01b523;D3;ON;";
 
     @Test
     public void testEncodeSwitchKakuMessage() throws RfLinkException, RfLinkNotImpException {

@@ -22,8 +22,8 @@ public class RfLinkColorMessageTest {
 
     public static String INPUT_MILIGHT_SWITCH_MESSAGE = "20;01;MiLightv1;ID=F746;SWITCH=00;RGBW=3c00;CMD=ON;";
     public static String INPUT_MILIGHT_SWITCH_MESSAGE2 = "20;17;MiLightv1;ID=F746;SWITCH=02;RGBW=8690;CMD=ON;";
-    public static String OUTPUT_MILIGHT_ON_MESSAGE = "10;MiLightv1;0000F746;00;858E;COLOR;";
-    public static String OUTPUT_MILIGHT_BRIGHT_MESSAGE = "10;MiLightv1;0000F746;00;858E;BRIGHT;";
+    public static String OUTPUT_MILIGHT_COLOR_MESSAGE = "10;MiLightv1;00F746;00;858E;COLOR;";
+    public static String OUTPUT_MILIGHT_BRIGHT_MESSAGE = "10;MiLightv1;00F746;00;858E;BRIGHT;";
 
     @Test
     public void testEncodeMilightRGBWMessage() throws RfLinkException, RfLinkNotImpException {
@@ -70,7 +70,7 @@ public class RfLinkColorMessageTest {
         // can't go further for now... only binary outputs
         Collection<String> messages = device.buildMessages();
         Assert.assertEquals("expect 2 messages", 2, messages.size());
-        Assert.assertTrue("Should contain ON action", messages.contains(OUTPUT_MILIGHT_ON_MESSAGE));
+        Assert.assertTrue("Should contain COLOR action", messages.contains(OUTPUT_MILIGHT_COLOR_MESSAGE));
         Assert.assertTrue("Should contain BRIGHT action", messages.contains(OUTPUT_MILIGHT_BRIGHT_MESSAGE));
     }
 

@@ -21,11 +21,11 @@ import org.openhab.binding.rflink.message.RfLinkMessage;
 public class RfLinkRtsMessageTest {
 
     public static String INPUT_RTS_SWITCH_MESSAGE = "20;39;RTS;ID=1a602a;SWITCH=0;CMD=DOWN;";
-    public static String OUTPUT_RTS_DOWN_MESSAGE = "10;RTS;000F0FF1;0;DOWN;";
-    public static String OUTPUT_RTS_UP_MESSAGE = "10;RTS;000F0FF1;0;UP;";
-    public static String OUTPUT_RTS_STOP_MESSAGE = "10;RTS;000F0FF1;0;STOP;";
-    public static String OUTPUT_RTS_ON_MESSAGE = "10;RTS;000F0FF1;0;UP;";
-    public static String OUTPUT_RTS_OFF_MESSAGE = "10;RTS;000F0FF1;0;DOWN;";
+    public static String OUTPUT_RTS_DOWN_MESSAGE = "10;RTS;0F0FF1;0;DOWN;";
+    public static String OUTPUT_RTS_UP_MESSAGE = "10;RTS;0F0FF1;0;UP;";
+    public static String OUTPUT_RTS_STOP_MESSAGE = "10;RTS;0F0FF1;0;STOP;";
+    public static String OUTPUT_RTS_ON_MESSAGE = "10;RTS;0F0FF1;0;UP;";
+    public static String OUTPUT_RTS_OFF_MESSAGE = "10;RTS;0F0FF1;0;DOWN;";
 
     @Test
     public void testEncodeMessage() throws RfLinkException, RfLinkNotImpException {
