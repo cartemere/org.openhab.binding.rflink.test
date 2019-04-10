@@ -11,14 +11,17 @@ import org.openhab.binding.rflink.device.RfLinkDeviceFactory;
 import org.openhab.binding.rflink.exceptions.RfLinkException;
 import org.openhab.binding.rflink.exceptions.RfLinkNotImpException;
 import org.openhab.binding.rflink.message.RfLinkMessage;
+import org.openhab.binding.rflink.packet.RfLinkPacket;
 
 public class RfLinkOregonTempHygroMessageTest {
 
-    public static String INPUT_ORE_TEMPHYGRO_MESSAGE = "20;74;Oregon TempHygro;ID=0ACC;TEMP=00be;HUM=40;BAT=OK;";
-    public static String INPUT_ORE_TEMPHYGRO_MESSAGE2 = "20;b3;Oregon TempHygro;ID=1a2d;TEMP=00dd;HUM=43;BAT=LOW;";
+    public static RfLinkPacket INPUT_ORE_TEMPHYGRO_MESSAGE = MessageTestFactory
+            .inputPacket("20;74;Oregon TempHygro;ID=0ACC;TEMP=00be;HUM=40;BAT=OK;");
+    public static RfLinkPacket INPUT_ORE_TEMPHYGRO_MESSAGE2 = MessageTestFactory
+            .inputPacket("20;b3;Oregon TempHygro;ID=1a2d;TEMP=00dd;HUM=43;BAT=LOW;");
 
     @Test
-    public void testDecodeMessage1() throws RfLinkException, RfLinkNotImpException {
+    public void testProcessPacket1() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_ORE_TEMPHYGRO_MESSAGE);
         RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
         device.initializeFromMessage(message);
@@ -32,7 +35,7 @@ public class RfLinkOregonTempHygroMessageTest {
     }
 
     @Test
-    public void testDecodeMessage2() throws RfLinkException, RfLinkNotImpException {
+    public void testProcessPacket2() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_ORE_TEMPHYGRO_MESSAGE2);
         RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
         device.initializeFromMessage(message);

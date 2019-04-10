@@ -6,12 +6,16 @@ import org.junit.Test;
 import org.openhab.binding.rflink.RfLinkBindingConstants;
 import org.openhab.binding.rflink.device.RfLinkWindDevice;
 import org.openhab.binding.rflink.message.RfLinkMessage;
+import org.openhab.binding.rflink.packet.RfLinkPacket;
 
 public class RfLinkWindMessageTest {
 
-    public static String INPUT_SWITCH_CRESTA_MESSAGE = "20;47;Cresta;ID=8001;WINDIR=0002;WINSP=0060;WINGS=0088;WINCHL=b0;";
-    public static String INPUT_SWITCH_OREGON_MESSAGE = "20;32;Oregon Wind;ID=1a89;WDIR=0045;WINSP=0068;AWINSP=0050;BAT=OK;";
-    public static String INPUT_SWITCH_OREGON_MESSAGE2 = "20;4a;Oregon Wind2;ID=3a0d;WDIR=0021;WINSP=0040;AWINSP=005a;BAT=OK;";
+    public static RfLinkPacket INPUT_SWITCH_CRESTA_MESSAGE = MessageTestFactory
+            .inputPacket("20;47;Cresta;ID=8001;WINDIR=0002;WINSP=0060;WINGS=0088;WINCHL=b0;");
+    public static RfLinkPacket INPUT_SWITCH_OREGON_MESSAGE = MessageTestFactory
+            .inputPacket("20;32;Oregon Wind;ID=1a89;WDIR=0045;WINSP=0068;AWINSP=0050;BAT=OK;");
+    public static RfLinkPacket INPUT_SWITCH_OREGON_MESSAGE2 = MessageTestFactory
+            .inputPacket("20;4a;Oregon Wind2;ID=3a0d;WDIR=0021;WINSP=0040;AWINSP=005a;BAT=OK;");
 
     @Test
     public void testEncodeCrestaMessage() {

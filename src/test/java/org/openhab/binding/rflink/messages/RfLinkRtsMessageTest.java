@@ -17,15 +17,17 @@ import org.openhab.binding.rflink.device.RfLinkRtsDevice;
 import org.openhab.binding.rflink.exceptions.RfLinkException;
 import org.openhab.binding.rflink.exceptions.RfLinkNotImpException;
 import org.openhab.binding.rflink.message.RfLinkMessage;
+import org.openhab.binding.rflink.packet.RfLinkPacket;
 
 public class RfLinkRtsMessageTest {
 
-    public static String INPUT_RTS_SWITCH_MESSAGE = "20;39;RTS;ID=1a602a;SWITCH=0;CMD=DOWN;";
-    public static String OUTPUT_RTS_DOWN_MESSAGE = "10;RTS;0F0FF1;0;DOWN;";
-    public static String OUTPUT_RTS_UP_MESSAGE = "10;RTS;0F0FF1;0;UP;";
-    public static String OUTPUT_RTS_STOP_MESSAGE = "10;RTS;0F0FF1;0;STOP;";
-    public static String OUTPUT_RTS_ON_MESSAGE = "10;RTS;0F0FF1;0;UP;";
-    public static String OUTPUT_RTS_OFF_MESSAGE = "10;RTS;0F0FF1;0;DOWN;";
+    public static RfLinkPacket INPUT_RTS_SWITCH_MESSAGE = MessageTestFactory
+            .inputPacket("20;39;RTS;ID=1a602a;SWITCH=0;CMD=DOWN;");
+    public static RfLinkPacket OUTPUT_RTS_DOWN_MESSAGE = MessageTestFactory.outputPacket("10;RTS;0F0FF1;0;DOWN;");
+    public static RfLinkPacket OUTPUT_RTS_UP_MESSAGE = MessageTestFactory.outputPacket("10;RTS;0F0FF1;0;UP;");
+    public static RfLinkPacket OUTPUT_RTS_STOP_MESSAGE = MessageTestFactory.outputPacket("10;RTS;0F0FF1;0;STOP;");
+    public static RfLinkPacket OUTPUT_RTS_ON_MESSAGE = MessageTestFactory.outputPacket("10;RTS;0F0FF1;0;UP;");
+    public static RfLinkPacket OUTPUT_RTS_OFF_MESSAGE = MessageTestFactory.outputPacket("10;RTS;0F0FF1;0;DOWN;");
 
     @Test
     public void testEncodeMessage() throws RfLinkException, RfLinkNotImpException {
@@ -52,7 +54,7 @@ public class RfLinkRtsMessageTest {
 
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, UpDownType.DOWN);
 
-        Collection<String> decodedMessages = device.buildMessages();
+        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_RTS_DOWN_MESSAGE, decodedMessages.iterator().next());
@@ -70,7 +72,7 @@ public class RfLinkRtsMessageTest {
 
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, UpDownType.UP);
 
-        Collection<String> decodedMessages = device.buildMessages();
+        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_RTS_ON_MESSAGE, decodedMessages.iterator().next());
@@ -88,7 +90,7 @@ public class RfLinkRtsMessageTest {
 
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, UpDownType.UP);
 
-        Collection<String> decodedMessages = device.buildMessages();
+        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_RTS_UP_MESSAGE, decodedMessages.iterator().next());
@@ -106,7 +108,7 @@ public class RfLinkRtsMessageTest {
 
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, UpDownType.DOWN);
 
-        Collection<String> decodedMessages = device.buildMessages();
+        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_RTS_OFF_MESSAGE, decodedMessages.iterator().next());
@@ -124,7 +126,7 @@ public class RfLinkRtsMessageTest {
         Assert.assertEquals("deviceName error", "RTS", device.getProtocol());
         Assert.assertEquals("command error", StopMoveType.STOP, device.command);
 
-        Collection<String> decodedMessages = device.buildMessages();
+        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_RTS_STOP_MESSAGE, decodedMessages.iterator().next());

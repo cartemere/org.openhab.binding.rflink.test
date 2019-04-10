@@ -19,23 +19,35 @@ import org.openhab.binding.rflink.device.RfLinkSwitchDevice;
 import org.openhab.binding.rflink.exceptions.RfLinkException;
 import org.openhab.binding.rflink.exceptions.RfLinkNotImpException;
 import org.openhab.binding.rflink.message.RfLinkMessage;
+import org.openhab.binding.rflink.packet.RfLinkPacket;
 
 public class RfLinkSwitchMessageTest {
 
-    public static String INPUT_SWITCH_KAKU_MESSAGE = "20;06;Kaku;ID=41;SWITCH=1;CMD=ON;";
-    public static String INPUT_SWITCH_KAKU_MESSAGE2 = "20;46;Kaku;ID=44;SWITCH=4;CMD=OFF;";
-    public static String INPUT_SWITCH_NEWKAKU_MESSAGE = "20;3B;NewKaku;ID=cac142;SWITCH=3;CMD=OFF;";
+    public static RfLinkPacket INPUT_SWITCH_KAKU_MESSAGE = MessageTestFactory
+            .inputPacket("20;06;Kaku;ID=41;SWITCH=1;CMD=ON;");
+    public static RfLinkPacket INPUT_SWITCH_KAKU_MESSAGE2 = MessageTestFactory
+            .inputPacket("20;46;Kaku;ID=44;SWITCH=4;CMD=OFF;");
+    public static RfLinkPacket INPUT_SWITCH_NEWKAKU_MESSAGE = MessageTestFactory
+            .inputPacket("20;3B;NewKaku;ID=cac142;SWITCH=3;CMD=OFF;");
     // newKaku specific command with Dimming info (cf. rutgerputter #39)
-    public static String INPUT_SWITCH_NEWKAKU_DIM_MESSAGE = "20;04;NewKaku;ID=000007;SWITCH=2;CMD=SET_LEVEL=14;";
-    public static String INPUT_SWITCH_NEWKAKU_ALLON_MESSAGE = "20;3B;NewKaku;ID=cac142;SWITCH=3;CMD=ALLON;";
-    public static String INPUT_SWITCH_CONRAD_MESSAGE = "20;41;Conrad RSL2;ID=00010002;SWITCH=03;CMD=ON;";
-    public static String OUTPUT_SWITCH_KAKU_MESSAGE = "10;Kaku;00004d;1;OFF;";
-    public static String OUTPUT_SWITCH_KAKU_DIM14_MESSAGE = "10;Kaku;00004d;1;14;";
-    public static String OUTPUT_SWITCH_KAKU_DIM80PERCENT_MESSAGE = "10;Kaku;00004d;1;12;";
-    public static String OUTPUT_SWITCH_KAKU_DIM18_MESSAGE = "10;Kaku;00004d;1;15;";
-    public static String OUTPUT_SWITCH_KAKU_DIM0_MESSAGE = "10;Kaku;00004d;1;OFF;";
+    public static RfLinkPacket INPUT_SWITCH_NEWKAKU_DIM_MESSAGE = MessageTestFactory
+            .inputPacket("20;04;NewKaku;ID=000007;SWITCH=2;CMD=SET_LEVEL=14;");
+    public static RfLinkPacket INPUT_SWITCH_NEWKAKU_ALLON_MESSAGE = MessageTestFactory
+            .inputPacket("20;3B;NewKaku;ID=cac142;SWITCH=3;CMD=ALLON;");
+    public static RfLinkPacket INPUT_SWITCH_CONRAD_MESSAGE = MessageTestFactory
+            .inputPacket("20;41;Conrad RSL2;ID=00010002;SWITCH=03;CMD=ON;");
+    public static RfLinkPacket OUTPUT_SWITCH_KAKU_MESSAGE = MessageTestFactory.outputPacket("10;Kaku;00004d;1;OFF;");
+    public static RfLinkPacket OUTPUT_SWITCH_KAKU_DIM14_MESSAGE = MessageTestFactory
+            .outputPacket("10;Kaku;00004d;1;14;");
+    public static RfLinkPacket OUTPUT_SWITCH_KAKU_DIM80PERCENT_MESSAGE = MessageTestFactory
+            .outputPacket("10;Kaku;00004d;1;12;");
+    public static RfLinkPacket OUTPUT_SWITCH_KAKU_DIM18_MESSAGE = MessageTestFactory
+            .outputPacket("10;Kaku;00004d;1;15;");
+    public static RfLinkPacket OUTPUT_SWITCH_KAKU_DIM0_MESSAGE = MessageTestFactory
+            .outputPacket("10;Kaku;00004d;1;OFF;");
 
-    public static String OUTPUT_SWITCH_HOMECONFORT_MESSAGE = "10;HomeConfort;01b523;D3;ON;";
+    public static RfLinkPacket OUTPUT_SWITCH_HOMECONFORT_MESSAGE = MessageTestFactory
+            .outputPacket("10;HomeConfort;01b523;D3;ON;");
 
     @Test
     public void testEncodeSwitchKakuMessage() throws RfLinkException, RfLinkNotImpException {
@@ -115,7 +127,7 @@ public class RfLinkSwitchMessageTest {
         Assert.assertEquals("deviceName error", "Kaku", device.getProtocol());
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, OnOffType.OFF);
 
-        Collection<String> decodedMessages = device.buildMessages();
+        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_SWITCH_KAKU_MESSAGE, decodedMessages.iterator().next());
@@ -136,7 +148,7 @@ public class RfLinkSwitchMessageTest {
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_DIMMING_LEVEL, (State) command);
 
         Assert.assertEquals("command error", "14", device.getCommandSuffix());
-        Collection<String> decodedMessages = device.buildMessages();
+        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_SWITCH_KAKU_DIM14_MESSAGE, decodedMessages.iterator().next());
@@ -157,7 +169,7 @@ public class RfLinkSwitchMessageTest {
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_DIMMING_LEVEL, new DecimalType(12));
 
         Assert.assertEquals("command error", "12", device.getCommandSuffix());
-        Collection<String> decodedMessages = device.buildMessages();
+        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_SWITCH_KAKU_DIM80PERCENT_MESSAGE,
@@ -179,7 +191,7 @@ public class RfLinkSwitchMessageTest {
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_DIMMING_LEVEL, new DecimalType(15));
 
         Assert.assertEquals("command error", "15", device.getCommandSuffix());
-        Collection<String> decodedMessages = device.buildMessages();
+        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_SWITCH_KAKU_DIM18_MESSAGE, decodedMessages.iterator().next());
@@ -200,7 +212,7 @@ public class RfLinkSwitchMessageTest {
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_DIMMING_LEVEL, new DecimalType(0));
 
         Assert.assertEquals("command error", "OFF", device.getCommandSuffix());
-        Collection<String> decodedMessages = device.buildMessages();
+        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_SWITCH_KAKU_DIM0_MESSAGE, decodedMessages.iterator().next());
@@ -218,7 +230,7 @@ public class RfLinkSwitchMessageTest {
 
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, OnOffType.ON);
 
-        Collection<String> decodedMessages = device.buildMessages();
+        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_SWITCH_HOMECONFORT_MESSAGE, decodedMessages.iterator().next());
