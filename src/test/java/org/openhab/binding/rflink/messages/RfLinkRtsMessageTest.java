@@ -33,7 +33,7 @@ public class RfLinkRtsMessageTest {
     public void testEncodeMessage() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_RTS_SWITCH_MESSAGE);
         RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message); // for now, generate Switch device
-        device.initializeFromMessage(message);
+        device.initializeFromMessage(null, message);
         Assert.assertEquals("deviceName error", "RTS", device.getProtocol());
         Assert.assertEquals("deviceId error", "RTS-1a602a-0", device.getKey());
 

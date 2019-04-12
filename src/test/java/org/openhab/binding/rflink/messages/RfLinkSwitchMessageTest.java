@@ -53,7 +53,7 @@ public class RfLinkSwitchMessageTest {
     public void testEncodeSwitchKakuMessage() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_KAKU_MESSAGE);
         RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
-        device.initializeFromMessage(message);
+        device.initializeFromMessage(null, message);
         Assert.assertEquals("deviceName error", "Kaku", device.getProtocol());
         Assert.assertEquals("deviceId error", "Kaku-41-1", device.getKey());
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_CONTACT, OpenClosedType.OPEN);
@@ -64,7 +64,7 @@ public class RfLinkSwitchMessageTest {
     public void testEncodeSwitchKakuMessage2() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_KAKU_MESSAGE2);
         RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
-        device.initializeFromMessage(message);
+        device.initializeFromMessage(null, message);
         Assert.assertEquals("deviceName error", "Kaku", device.getProtocol());
         Assert.assertEquals("deviceId error", "Kaku-44-4", device.getKey());
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_CONTACT, OpenClosedType.CLOSED);
@@ -75,7 +75,7 @@ public class RfLinkSwitchMessageTest {
     public void testEncodeSwitchNewKakuMessage() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_NEWKAKU_MESSAGE);
         RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
-        device.initializeFromMessage(message);
+        device.initializeFromMessage(null, message);
         Assert.assertEquals("deviceName error", "NewKaku", device.getProtocol());
         Assert.assertEquals("deviceId error", "NewKaku-cac142-3", device.getKey());
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_CONTACT, OpenClosedType.CLOSED);
@@ -86,7 +86,7 @@ public class RfLinkSwitchMessageTest {
     public void testEncodeSwitchNewKakuDimMessage() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_NEWKAKU_DIM_MESSAGE);
         RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
-        device.initializeFromMessage(message);
+        device.initializeFromMessage(null, message);
         Assert.assertEquals("deviceName error", "NewKaku", device.getProtocol());
         Assert.assertEquals("deviceId error", "NewKaku-000007-2", device.getKey());
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_CONTACT, OpenClosedType.OPEN);
@@ -98,7 +98,7 @@ public class RfLinkSwitchMessageTest {
     public void testEncodeSwitchNewKakuAllOnMessage() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_NEWKAKU_ALLON_MESSAGE);
         RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
-        device.initializeFromMessage(message);
+        device.initializeFromMessage(null, message);
         Assert.assertEquals("deviceName error", "NewKaku", device.getProtocol());
         Assert.assertEquals("deviceId error", "NewKaku-cac142-3", device.getKey());
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_CONTACT, OpenClosedType.OPEN);
@@ -109,7 +109,7 @@ public class RfLinkSwitchMessageTest {
     public void testEncodeSwitchConradMessage() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_CONRAD_MESSAGE);
         RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
-        device.initializeFromMessage(message);
+        device.initializeFromMessage(null, message);
         Assert.assertEquals("deviceName error", "ConradRSL2", device.getProtocol());
         Assert.assertEquals("deviceId error", "ConradRSL2-00010002-03", device.getKey());
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_CONTACT, OpenClosedType.OPEN);

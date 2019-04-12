@@ -34,7 +34,7 @@ public class RfLinkColorMessageTest {
     public void testEncodeMilightRGBWMessage() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_MILIGHT_SWITCH_MESSAGE);
         RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
-        device.initializeFromMessage(message);
+        device.initializeFromMessage(null, message);
 
         Assert.assertEquals("deviceName error", "MiLightv1", device.getProtocol());
         Assert.assertEquals("deviceId error", "MiLightv1-F746-00", device.getKey());
@@ -51,7 +51,7 @@ public class RfLinkColorMessageTest {
     public void testEncodeMilightRGBWMessage2() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_MILIGHT_SWITCH_MESSAGE2);
         RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
-        device.initializeFromMessage(message);
+        device.initializeFromMessage(null, message);
 
         Assert.assertEquals("deviceName error", "MiLightv1", device.getProtocol());
         Assert.assertEquals("deviceId error", "MiLightv1-F746-02", device.getKey());

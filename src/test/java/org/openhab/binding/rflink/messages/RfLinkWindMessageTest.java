@@ -21,7 +21,7 @@ public class RfLinkWindMessageTest {
     public void testEncodeCrestaMessage() {
         RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_CRESTA_MESSAGE);
         RfLinkWindDevice device = new RfLinkWindDevice();
-        device.initializeFromMessage(message);
+        device.initializeFromMessage(null, message);
         Assert.assertEquals("deviceName error", "Cresta", device.getProtocol());
         Assert.assertEquals("deviceId error", "Cresta-8001", device.getKey());
         // ?
@@ -37,7 +37,7 @@ public class RfLinkWindMessageTest {
     public void testEncodeOregonMessage() {
         RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_OREGON_MESSAGE);
         RfLinkWindDevice device = new RfLinkWindDevice();
-        device.initializeFromMessage(message);
+        device.initializeFromMessage(null, message);
         Assert.assertEquals("deviceName error", "OregonWind", device.getProtocol());
         Assert.assertEquals("deviceId error", "OregonWind-1a89", device.getKey());
         // ?
@@ -53,7 +53,7 @@ public class RfLinkWindMessageTest {
     public void testEncodeOregon2Message() {
         RfLinkMessage message = new RfLinkMessage(INPUT_SWITCH_OREGON_MESSAGE2);
         RfLinkWindDevice device = new RfLinkWindDevice();
-        device.initializeFromMessage(message);
+        device.initializeFromMessage(null, message);
         Assert.assertEquals("deviceName error", "OregonWind2", device.getProtocol());
         Assert.assertEquals("deviceId error", "OregonWind2-3a0d", device.getKey());
         // ?

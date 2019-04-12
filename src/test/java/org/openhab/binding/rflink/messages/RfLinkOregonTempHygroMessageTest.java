@@ -24,7 +24,7 @@ public class RfLinkOregonTempHygroMessageTest {
     public void testProcessPacket1() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_ORE_TEMPHYGRO_MESSAGE);
         RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
-        device.initializeFromMessage(message);
+        device.initializeFromMessage(null, message);
         Assert.assertEquals("deviceName error", "OregonTempHygro", device.getProtocol());
         Assert.assertEquals("deviceId error", "OregonTempHygro-0ACC", device.getKey());
 
@@ -38,7 +38,7 @@ public class RfLinkOregonTempHygroMessageTest {
     public void testProcessPacket2() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_ORE_TEMPHYGRO_MESSAGE2);
         RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
-        device.initializeFromMessage(message);
+        device.initializeFromMessage(null, message);
         Assert.assertEquals("deviceName error", "OregonTempHygro", device.getProtocol());
         Assert.assertEquals("deviceId error", "OregonTempHygro-1a2d", device.getKey());
 
