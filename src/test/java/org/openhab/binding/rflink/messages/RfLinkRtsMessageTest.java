@@ -32,7 +32,7 @@ public class RfLinkRtsMessageTest {
     @Test
     public void testEncodeMessage() throws RfLinkException, RfLinkNotImpException {
         RfLinkMessage message = new RfLinkMessage(INPUT_RTS_SWITCH_MESSAGE);
-        RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message); // for now, generate Switch device
+        RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
         device.initializeFromMessage(null, message);
         Assert.assertEquals("deviceName error", "RTS", device.getProtocol());
         Assert.assertEquals("deviceId error", "RTS-1a602a-0", device.getKey());
@@ -40,6 +40,30 @@ public class RfLinkRtsMessageTest {
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_CONTACT, null);
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_SHUTTER, OnOffType.OFF);
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, UpDownType.DOWN);
+    }
+
+    @Test
+    public void testEchoInputMessage() throws RfLinkException, RfLinkNotImpException {
+        RfLinkMessage message = new RfLinkMessage(INPUT_RTS_SWITCH_MESSAGE);
+        RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
+        RfLinkDeviceConfiguration config = new RfLinkDeviceConfiguration();
+        config.linkedAddressId = "12345";
+        device.initializeFromMessage(config, message);
+        Collection<RfLinkPacket> echoPackets = device.buildEchoPackets();
+        Assert.assertNotNull(echoPackets);
+        Assert.assertFalse(echoPackets.isEmpty());
+        Assert.assertEquals(1, echoPackets.size());
+        RfLinkPacket echoPacket = echoPackets.iterator().next();
+
+        RfLinkMessage echoMessage = new RfLinkMessage(echoPacket);
+        RfLinkDevice echoDevice = RfLinkDeviceFactory.createDeviceFromMessage(echoMessage);
+        echoDevice.initializeFromMessage(null, echoMessage);
+        Assert.assertEquals("deviceName error", "RTS", echoDevice.getProtocol());
+        Assert.assertEquals("deviceId error", "RTS-12345-0", echoDevice.getKey());
+
+        ComparisonUtils.checkState(echoDevice, RfLinkBindingConstants.CHANNEL_CONTACT, null);
+        ComparisonUtils.checkState(echoDevice, RfLinkBindingConstants.CHANNEL_SHUTTER, OnOffType.OFF);
+        ComparisonUtils.checkState(echoDevice, RfLinkBindingConstants.CHANNEL_COMMAND, UpDownType.DOWN);
     }
 
     @Test
@@ -54,7 +78,7 @@ public class RfLinkRtsMessageTest {
 
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, UpDownType.DOWN);
 
-        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
+        Collection<RfLinkPacket> decodedMessages = device.buildOutputPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_RTS_DOWN_MESSAGE, decodedMessages.iterator().next());
@@ -72,7 +96,7 @@ public class RfLinkRtsMessageTest {
 
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, UpDownType.UP);
 
-        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
+        Collection<RfLinkPacket> decodedMessages = device.buildOutputPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_RTS_ON_MESSAGE, decodedMessages.iterator().next());
@@ -90,7 +114,7 @@ public class RfLinkRtsMessageTest {
 
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, UpDownType.UP);
 
-        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
+        Collection<RfLinkPacket> decodedMessages = device.buildOutputPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_RTS_UP_MESSAGE, decodedMessages.iterator().next());
@@ -108,7 +132,7 @@ public class RfLinkRtsMessageTest {
 
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, UpDownType.DOWN);
 
-        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
+        Collection<RfLinkPacket> decodedMessages = device.buildOutputPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_RTS_OFF_MESSAGE, decodedMessages.iterator().next());
@@ -126,7 +150,7 @@ public class RfLinkRtsMessageTest {
         Assert.assertEquals("deviceName error", "RTS", device.getProtocol());
         Assert.assertEquals("command error", StopMoveType.STOP, device.command);
 
-        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
+        Collection<RfLinkPacket> decodedMessages = device.buildOutputPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_RTS_STOP_MESSAGE, decodedMessages.iterator().next());

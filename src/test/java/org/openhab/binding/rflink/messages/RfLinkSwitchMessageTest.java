@@ -127,7 +127,7 @@ public class RfLinkSwitchMessageTest {
         Assert.assertEquals("deviceName error", "Kaku", device.getProtocol());
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, OnOffType.OFF);
 
-        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
+        Collection<RfLinkPacket> decodedMessages = device.buildOutputPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_SWITCH_KAKU_MESSAGE, decodedMessages.iterator().next());
@@ -148,7 +148,7 @@ public class RfLinkSwitchMessageTest {
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_DIMMING_LEVEL, (State) command);
 
         Assert.assertEquals("command error", "14", device.getCommandSuffix());
-        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
+        Collection<RfLinkPacket> decodedMessages = device.buildOutputPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_SWITCH_KAKU_DIM14_MESSAGE, decodedMessages.iterator().next());
@@ -169,7 +169,7 @@ public class RfLinkSwitchMessageTest {
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_DIMMING_LEVEL, new DecimalType(12));
 
         Assert.assertEquals("command error", "12", device.getCommandSuffix());
-        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
+        Collection<RfLinkPacket> decodedMessages = device.buildOutputPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_SWITCH_KAKU_DIM80PERCENT_MESSAGE,
@@ -191,7 +191,7 @@ public class RfLinkSwitchMessageTest {
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_DIMMING_LEVEL, new DecimalType(15));
 
         Assert.assertEquals("command error", "15", device.getCommandSuffix());
-        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
+        Collection<RfLinkPacket> decodedMessages = device.buildOutputPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_SWITCH_KAKU_DIM18_MESSAGE, decodedMessages.iterator().next());
@@ -212,7 +212,7 @@ public class RfLinkSwitchMessageTest {
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_DIMMING_LEVEL, new DecimalType(0));
 
         Assert.assertEquals("command error", "OFF", device.getCommandSuffix());
-        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
+        Collection<RfLinkPacket> decodedMessages = device.buildOutputPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_SWITCH_KAKU_DIM0_MESSAGE, decodedMessages.iterator().next());
@@ -230,7 +230,7 @@ public class RfLinkSwitchMessageTest {
 
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_COMMAND, OnOffType.ON);
 
-        Collection<RfLinkPacket> decodedMessages = device.buildPackets();
+        Collection<RfLinkPacket> decodedMessages = device.buildOutputPackets();
         Assert.assertNotNull(decodedMessages);
         Assert.assertEquals(1, decodedMessages.size());
         Assert.assertEquals("message error", OUTPUT_SWITCH_HOMECONFORT_MESSAGE, decodedMessages.iterator().next());

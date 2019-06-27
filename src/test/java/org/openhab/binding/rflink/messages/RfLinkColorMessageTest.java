@@ -73,7 +73,7 @@ public class RfLinkColorMessageTest {
         device.initializeFromChannel(config, channelId, command);
         Assert.assertNotNull(device);
         // can't go further for now... only binary outputs
-        Collection<RfLinkPacket> packets = device.buildPackets();
+        Collection<RfLinkPacket> packets = device.buildOutputPackets();
         Assert.assertEquals("expect 2 messages", 2, packets.size());
         Assert.assertTrue("Should contain COLOR action : " + OUTPUT_MILIGHT_COLOR_MESSAGE,
                 packets.contains(OUTPUT_MILIGHT_COLOR_MESSAGE));
