@@ -22,7 +22,7 @@ import org.openhab.binding.rflink.packet.RfLinkPacket;
 public class RfLinkRtsMessageTest {
 
     public static RfLinkPacket INPUT_RTS_SWITCH_MESSAGE = MessageTestFactory
-            .inputPacket("20;39;RTS;ID=1a602a;SWITCH=0;CMD=DOWN;");
+            .inputPacket("20;39;RTS;ID=1a602a;SWITCH=1;CMD=DOWN;");
     public static RfLinkPacket OUTPUT_RTS_DOWN_MESSAGE = MessageTestFactory.outputPacket("10;RTS;0F0FF1;0;DOWN;");
     public static RfLinkPacket OUTPUT_RTS_UP_MESSAGE = MessageTestFactory.outputPacket("10;RTS;0F0FF1;0;UP;");
     public static RfLinkPacket OUTPUT_RTS_STOP_MESSAGE = MessageTestFactory.outputPacket("10;RTS;0F0FF1;0;STOP;");
@@ -35,7 +35,7 @@ public class RfLinkRtsMessageTest {
         RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
         device.initializeFromMessage(null, message);
         Assert.assertEquals("deviceName error", "RTS", device.getProtocol());
-        Assert.assertEquals("deviceId error", "RTS-1a602a-0", device.getKey());
+        Assert.assertEquals("deviceId error", "RTS-1a602a-1", device.getKey());
 
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_CONTACT, null);
         ComparisonUtils.checkState(device, RfLinkBindingConstants.CHANNEL_SHUTTER, OnOffType.OFF);
@@ -47,7 +47,7 @@ public class RfLinkRtsMessageTest {
         RfLinkMessage message = new RfLinkMessage(INPUT_RTS_SWITCH_MESSAGE);
         RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
         RfLinkDeviceConfiguration config = new RfLinkDeviceConfiguration();
-        config.linkedAddressId = "12345";
+        config.echoPattern = "ID=12345;SWITCH=0";
         device.initializeFromMessage(config, message);
         Collection<RfLinkPacket> echoPackets = device.buildEchoPackets();
         Assert.assertNotNull(echoPackets);
