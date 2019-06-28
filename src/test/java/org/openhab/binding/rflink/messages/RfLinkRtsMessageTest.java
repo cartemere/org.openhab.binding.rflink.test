@@ -67,6 +67,30 @@ public class RfLinkRtsMessageTest {
     }
 
     @Test
+    public void testEchoEmptyArguments() throws RfLinkException, RfLinkNotImpException {
+        RfLinkMessage message = new RfLinkMessage(INPUT_RTS_SWITCH_MESSAGE);
+        RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
+        RfLinkDeviceConfiguration config = new RfLinkDeviceConfiguration();
+        config.echoPattern = ""; // invalid entry
+        device.initializeFromMessage(config, message);
+        Collection<RfLinkPacket> echoPackets = device.buildEchoPackets();
+        Assert.assertNotNull(echoPackets);
+        Assert.assertTrue(echoPackets.isEmpty());
+    }
+
+    @Test
+    public void testEchoWrongArguments() throws RfLinkException, RfLinkNotImpException {
+        RfLinkMessage message = new RfLinkMessage(INPUT_RTS_SWITCH_MESSAGE);
+        RfLinkDevice device = RfLinkDeviceFactory.createDeviceFromMessage(message);
+        RfLinkDeviceConfiguration config = new RfLinkDeviceConfiguration();
+        config.echoPattern = "ID;12345=SWITCH=0"; // invalid entry
+        device.initializeFromMessage(config, message);
+        Collection<RfLinkPacket> echoPackets = device.buildEchoPackets();
+        Assert.assertNotNull(echoPackets);
+        Assert.assertTrue(echoPackets.isEmpty());
+    }
+
+    @Test
     public void testDecodeShutterMessage() throws RfLinkNotImpException, RfLinkException {
         RfLinkDeviceConfiguration config = MessageTestFactory.getDeviceConfiguration("RTS-0F0FF1-0", false);
         ChannelUID channelId = MessageTestFactory.getChannel(RfLinkBindingConstants.CHANNEL_SHUTTER);
